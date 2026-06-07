@@ -827,18 +827,14 @@ body:hover #cursor-glow{opacity:1;}
 /* Default: Cre8tera Dark (already in :root, kept as base) */
 
 /* Theme: Stellar Light */
-[data-theme="light"]{
-  --bg:#f5f0e8;--white:#1a1208;--mu:rgba(30,20,8,.45);
-  --gold:#8a5e00;--gl:rgba(138,94,0,.7);--gd:rgba(138,94,0,.06);
-  --b:rgba(0,0,0,.09);--black:#fff;
-}
-[data-theme="light"] body{background:#f0ebe0;}
-[data-theme="light"] #canvas-bg{opacity:.12;}
-[data-theme="light"] .planet-core{box-shadow:0 2px 12px rgba(0,0,0,.18);}
-[data-theme="light"] .pg{background:linear-gradient(160deg,#f5f0e8,#ede8de)!important;}
-[data-theme="light"] .DC2{background:#fff;border-color:rgba(0,0,0,.07);}
-[data-theme="light"] .TC{background:#faf7f0;}
-[data-theme="light"] .TC.feat{background:#fff8e8;}
+
+
+
+
+
+
+
+
 
 
 /* Theme toggle button */
@@ -1429,6 +1425,195 @@ h2.sttl {
   .plbl { font-size: .75rem !important; }
   .stag { font-size: .7rem !important; }
 }
+
+
+/* ══ LAYOUT CONTROLES FLOTANTES — sin solapamiento ══ */
+/* Columna derecha: copyright → zoom → theme toggle */
+#theme-toggle {
+  bottom: 80px !important;
+  right: 14px !important;
+}
+#theme-panel {
+  bottom: 122px !important;
+  right: 4px !important;
+}
+/* Zoom wrap alineado con theme toggle */
+.zm-wrap {
+  bottom: 36px !important;
+  right: 4px !important;
+}
+/* Search izquierda, sin cambio */
+#srch-btn {
+  bottom: 36px !important;
+  left: 14px !important;
+}
+
+/* ══ STELLAR LIGHT — fix completo ══ */
+
+/* Variables base correctas para light */
+[data-theme="light"] {
+  --bg: #e8e0d0;
+  --white: #1a1208;
+  --mu: rgba(30,20,8,.5);
+  --gold: #7a5200;
+  --gl: rgba(122,82,0,.8);
+  --gd: rgba(122,82,0,.08);
+  --b: rgba(0,0,0,.1);
+  --black: #faf6ef;
+}
+
+/* Fondo general */
+[data-theme="light"] body { background: #f0ebe0; }
+
+/* Canvas: nebulosa suave en warm white */
+[data-theme="light"] #canvas-bg { opacity: .18; filter: sepia(.4) brightness(1.5); }
+
+/* Controles flotantes en light */
+[data-theme="light"] #theme-toggle,
+[data-theme="light"] #theme-panel,
+[data-theme="light"] #srch-btn,
+[data-theme="light"] .zm-btn {
+  background: rgba(240,235,224,.92) !important;
+  border-color: rgba(0,0,0,.12) !important;
+  color: #1a1208 !important;
+}
+[data-theme="light"] #theme-panel {
+  background: rgba(245,240,232,.97) !important;
+}
+[data-theme="light"] #srch-in {
+  background: rgba(240,235,224,.95) !important;
+  color: #1a1208 !important;
+  border-color: rgba(0,0,0,.15) !important;
+}
+[data-theme="light"] #srch-in::placeholder { color: rgba(30,20,8,.4); }
+
+/* Copyright bar en light */
+[data-theme="light"] #copyright-bar {
+  background: rgba(220,215,205,.95) !important;
+  border-top-color: rgba(0,0,0,.1) !important;
+  color: rgba(30,20,8,.5) !important;
+}
+
+/* Banner en light */
+[data-theme="light"] #banner {
+  background: rgba(220,212,198,.6) !important;
+  border-color: rgba(0,0,0,.08) !important;
+}
+[data-theme="light"] #banner-track { color: rgba(30,20,8,.55) !important; }
+
+/* Planetas en light: más contraste */
+[data-theme="light"] .planet-core {
+  box-shadow: 0 2px 16px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.08) !important;
+}
+[data-theme="light"] .plbl { color: #1a1208 !important; }
+
+/* Órbitas en light */
+[data-theme="light"] .oring {
+  border-color: rgba(0,0,0,.1) !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Secciones (páginas) en light */
+[data-theme="light"] .pg {
+  background: linear-gradient(160deg,#f5f0e8,#ede8de) !important;
+}
+
+/* Cards directorio en light */
+[data-theme="light"] .DC2 {
+  background: #fff !important;
+  border-color: rgba(0,0,0,.08) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06) !important;
+}
+[data-theme="light"] .DC2:hover {
+  background: #faf6ef !important;
+  box-shadow: 0 6px 24px rgba(0,0,0,.1) !important;
+}
+[data-theme="light"] .DN { color: #1a1208 !important; }
+[data-theme="light"] .DD { color: rgba(30,20,8,.6) !important; }
+[data-theme="light"] .DTYPE { color: rgba(30,20,8,.4) !important; }
+[data-theme="light"] .DLNK { color: var(--gold) !important; }
+[data-theme="light"] .DIO svg circle { stroke: rgba(122,82,0,.5) !important; }
+[data-theme="light"] .DIO svg circle:last-child { fill: rgba(122,82,0,.7) !important; }
+
+/* Filtros directorio en light */
+[data-theme="light"] .FB {
+  background: rgba(0,0,0,.04) !important;
+  border-color: rgba(0,0,0,.1) !important;
+  color: rgba(30,20,8,.6) !important;
+}
+[data-theme="light"] .FB.act {
+  background: rgba(122,82,0,.1) !important;
+  border-color: rgba(122,82,0,.4) !important;
+  color: var(--gold) !important;
+}
+[data-theme="light"] #dir-search {
+  background: rgba(0,0,0,.04) !important;
+  border-color: rgba(0,0,0,.1) !important;
+  color: #1a1208 !important;
+}
+
+/* Testimonios en light */
+[data-theme="light"] .TC {
+  background: #fff !important;
+  border: none !important;
+}
+[data-theme="light"] .TC.feat { background: #fffbf0 !important; }
+[data-theme="light"] .TQ { color: rgba(30,20,8,.75) !important; }
+[data-theme="light"] .TQM { color: rgba(122,82,0,.2) !important; }
+[data-theme="light"] .TNAME { color: #1a1208 !important; }
+[data-theme="light"] .TROLE { color: rgba(30,20,8,.5) !important; }
+[data-theme="light"] .TAUTH { border-top-color: rgba(0,0,0,.08) !important; }
+[data-theme="light"] .TAVI {
+  background: rgba(122,82,0,.08) !important;
+  border-color: rgba(122,82,0,.2) !important;
+  color: var(--gold) !important;
+}
+[data-theme="light"] .TSTARS { color: var(--gold) !important; }
+
+/* Formulario en light */
+[data-theme="light"] input,
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background: #fff !important;
+  border-color: rgba(0,0,0,.15) !important;
+  color: #1a1208 !important;
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder { color: rgba(30,20,8,.35) !important; }
+
+/* Nav suggestions en light */
+[data-theme="light"] .NS-W {
+  border-top-color: rgba(0,0,0,.08) !important;
+  background: rgba(220,215,205,.5) !important;
+}
+[data-theme="light"] .NS-I { border-color: rgba(0,0,0,.08) !important; }
+[data-theme="light"] .NS-I:hover { background: rgba(122,82,0,.06) !important; }
+[data-theme="light"] .NS-N { color: #1a1208 !important; }
+[data-theme="light"] .NS-D { color: rgba(30,20,8,.5) !important; }
+
+/* Footer de páginas en light */
+[data-theme="light"] .PF {
+  border-top-color: rgba(0,0,0,.08) !important;
+  background: rgba(220,212,198,.5) !important;
+}
+
+/* Loader en light */
+[data-theme="light"] #loader { background: #f0ebe0 !important; }
+
+/* Cursor nave en light — más oscuro */
+[data-theme="light"] #spaceship-cursor-wrap {
+  filter: drop-shadow(0 0 4px rgba(122,82,0,.5)) !important;
+}
+
+/* Burst dots en light */
+[data-theme="light"] .burst-dot { background: rgba(122,82,0,.8) !important; }
+
+/* Thruster en light */
+[data-theme="light"] .thruster-dot { background: rgba(122,82,0,.6) !important; }
+
+/* Scroll reveal visible en light */
+[data-theme="light"] .rev.visible { opacity: 1 !important; }
 
 </style>
 </head>
