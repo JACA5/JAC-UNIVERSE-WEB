@@ -840,19 +840,6 @@ body:hover #cursor-glow{opacity:1;}
 [data-theme="light"] .TC{background:#faf7f0;}
 [data-theme="light"] .TC.feat{background:#fff8e8;}
 
-/* Theme: Alto Contraste */
-[data-theme="contrast"]{
-  --bg:#ffff00;--white:#000;--mu:rgba(0,0,0,.7);
-  --gold:#000;--gl:rgba(0,0,0,.9);--gd:rgba(255,255,0,.15);
-  --b:rgba(0,0,0,.5);
-}
-[data-theme="contrast"] body{background:#000;}
-[data-theme="contrast"] .pg{background:#000!important;}
-[data-theme="contrast"] .planet-core{border:2px solid #ff0;}
-[data-theme="contrast"] .planet-core span{color:#fff!important;}
-[data-theme="contrast"] .orbit-ring{border:1.5px solid #ff0;}
-[data-theme="contrast"] .DC2{background:#111;border:1px solid #ff0;}
-[data-theme="contrast"] .FB.act{background:#ff0;color:#000;}
 
 /* Theme toggle button */
 #theme-toggle{position:fixed;bottom:36px;right:56px;z-index:80;
@@ -1322,6 +1309,125 @@ h2.sttl {
     --text-base: 1.08rem;
     --text-md:   1.18rem;
   }
+}
+
+
+/* ══ TYPOGRAPHY FIX 2026 — MacBook Pro calibrated ══ */
+
+/* ── Tokens reescalados para Retina + non-Retina ── */
+:root {
+  --text-xs:    0.78rem;   /* 12.5px CSS → ~25px Retina — badges, metadata */
+  --text-sm:    0.88rem;   /* 14px CSS   → ~28px Retina — labels UI */
+  --text-base:  1rem;      /* 16px CSS   → ~32px Retina — body */
+  --text-md:    1.08rem;   /* 17.3px CSS → body lead */
+  --text-lg:    1.35rem;   /* 21.6px CSS → card headings */
+  --text-xl:    clamp(1.4rem, 2vw, 1.9rem);   /* section headings */
+  --text-2xl:   clamp(1.8rem, 3vw, 2.8rem);   /* display headings — más contenido */
+}
+
+/* ── Títulos principales: bajar de 3.8rem a máx 2.8rem ── */
+.sttl {
+  font-size: clamp(1.8rem, 3vw, 2.8rem) !important;
+  line-height: 1.15 !important;
+}
+
+/* ── Labels de planetas: subir de .48rem a .72rem ── */
+.plbl {
+  font-size: .72rem !important;
+  letter-spacing: .06em !important;
+}
+
+/* ── Stag labels: de .56rem a .72rem ── */
+.stag {
+  font-size: .72rem !important;
+  letter-spacing: .2em !important;
+}
+
+/* ── Badges (precio, tipo) ── */
+.badge, .TTAG, .bF, .bP2, .bPaid {
+  font-size: .72rem !important;
+}
+
+/* ── Filter buttons directorio ── */
+.FB {
+  font-size: .75rem !important;
+  letter-spacing: .06em !important;
+}
+
+/* ── Card directorio ── */
+.DN {
+  font-size: .92rem !important;
+}
+.DD {
+  font-size: .88rem !important;
+  line-height: 1.65 !important;
+}
+.DTYPE, .DLNK {
+  font-size: .72rem !important;
+}
+
+/* ── Testimonios ── */
+.TQ {
+  font-size: 1.05rem !important;
+  line-height: 1.75 !important;
+}
+.TROLE {
+  font-size: .75rem !important;
+  line-height: 1.5 !important;
+}
+
+/* ── Nav suggestions ── */
+.NS-N {
+  font-size: .92rem !important;
+}
+.NS-D {
+  font-size: .78rem !important;
+}
+
+/* ── Copyright y metadata ── */
+#copyright-bar {
+  font-size: .68rem !important;
+}
+
+/* ── Search placeholder ── */
+#srch-in, #dir-search {
+  font-size: .88rem !important;
+}
+
+/* ── Banner ── */
+#banner-track {
+  font-size: .78rem !important;
+  letter-spacing: .12em !important;
+}
+
+/* ── Orbit labels ── */
+.oring-lbl {
+  font-size: .65rem !important;
+  letter-spacing: .14em !important;
+}
+
+/* ── Números grandes (TQM quotes) ── */
+.TQM {
+  font-size: 2.8rem !important;
+  line-height: .85 !important;
+}
+
+/* ── Body text en secciones ── */
+.pg p {
+  font-size: var(--text-base);
+  line-height: 1.75;
+}
+
+/* ── Responsive override mobile ── */
+@media(max-width:640px){
+  :root {
+    --text-xs:   0.82rem;
+    --text-sm:   0.92rem;
+    --text-base: 1.05rem;
+    --text-md:   1.12rem;
+  }
+  .plbl { font-size: .75rem !important; }
+  .stag { font-size: .7rem !important; }
 }
 
 </style>
@@ -3971,7 +4077,7 @@ if(window.matchMedia('(pointer:fine)').matches){
 
 // ── 4. Theme system
 (function initTheme(){
-  const saved = localStorage.getItem('cre8-theme')||'dark';
+  const saved = (localStorage.getItem('cre8-theme')||'dark').replace('contrast','dark');
   document.documentElement.setAttribute('data-theme', saved);
 
   const btn = document.createElement('button');
@@ -3990,7 +4096,7 @@ if(window.matchMedia('(pointer:fine)').matches){
   panel.innerHTML = `
     <div class="theme-opt" data-t="dark"><span class="theme-swatch" style="background:#0d0a05;"></span>Cre8tera Dark</div>
     <div class="theme-opt" data-t="light"><span class="theme-swatch" style="background:#f0ebe0;border-color:#c9a84c;"></span>Stellar Light</div>
-    <div class="theme-opt" data-t="contrast"><span class="theme-swatch" style="background:#ff0;"></span>Alto Contraste</div>`;
+    `;
   document.body.appendChild(panel);
 
   btn.addEventListener('click', e=>{ e.stopPropagation(); panel.classList.toggle('open'); });
