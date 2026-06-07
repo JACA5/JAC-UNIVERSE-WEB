@@ -834,6 +834,51 @@ body:hover #cursor-glow{opacity:1;}
 .theme-opt:hover,.theme-opt.active-theme{color:var(--gold);background:var(--gd);}
 .theme-swatch{width:10px;height:10px;border-radius:50%;border:1px solid var(--b);}
 
+
+/* ══ CURSOR NAVE ESPACIAL ══ */
+body {
+  cursor: none !important;
+}
+a, button, .planet, .FB, .DC2, .NS-I, .zm-btn, #srch-btn,
+#theme-toggle, [onclick], [tabindex], input, textarea, select {
+  cursor: none !important;
+}
+#spaceship-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  width: 32px;
+  height: 32px;
+  transform: translate(-4px, -4px);
+  transition: transform 0.05s linear;
+  filter: drop-shadow(0 0 4px rgba(201,168,76,0.6));
+  will-change: left, top;
+}
+#spaceship-cursor.hovering {
+  filter: drop-shadow(0 0 8px rgba(201,168,76,0.95));
+  transform: translate(-4px, -4px) scale(1.15);
+}
+#spaceship-cursor.clicking {
+  filter: drop-shadow(0 0 14px rgba(201,168,76,1));
+  transform: translate(-4px, -4px) scale(0.9);
+}
+/* Estela de propulsión */
+.thruster-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.7);
+  transform: translate(-50%, -50%);
+  animation: thrusterFade 0.5s ease-out forwards;
+}
+@keyframes thrusterFade {
+  0%   { opacity: 0.8; transform: translate(-50%,-50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(0.1); }
+}
+
 </style>
 </head>
 <body>
@@ -3677,6 +3722,129 @@ document.addEventListener('DOMContentLoaded',()=>{
       requestAnimationFrame(ff);
     })();
   }
+})();
+
+
+// ══ CURSOR NAVE ESPACIAL ══
+(function initSpaceshipCursor(){
+  // Solo en desktop con puntero fino
+  if(!window.matchMedia('(pointer:fine)').matches) return;
+
+  // Remover el cursor glow anterior si existe
+  const oldGlow = document.getElementById('cursor-glow');
+  if(oldGlow) oldGlow.remove();
+
+  // Crear nave
+  const ship = document.createElement('div');
+  ship.innerHTML = `<svg id="spaceship-cursor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" style="width:32px;height:32px;">
+    <g transform="rotate(-45, 16, 16)">
+      <path d="M16 4 L20 24 L16 21 L12 24 Z" fill="#c9a84c" opacity="0.95"/>
+      <ellipse cx="16" cy="9" rx="2.5" ry="3.5" fill="#0a0704" stroke="#c9a84c" stroke-width="0.8" opacity="0.9"/>
+      <path d="M12 17 L6 23 L12 20 Z" fill="#c9a84c" opacity="0.7"/>
+      <path d="M20 17 L26 23 L20 20 Z" fill="#c9a84c" opacity="0.7"/>
+      <rect x="14" y="21" width="4" height="3" rx="1" fill="#ff8c2a" opacity="0.9"/>
+      <ellipse cx="16" cy="25" rx="3" ry="1.5" fill="#ff6600" opacity="0.4"/>
+      <line x1="16" y1="7" x2="16" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    </g>
+  </svg>`;
+  ship.id = 'spaceship-cursor-wrap';
+  ship.style.cssText = `
+    position:fixed;pointer-events:none;z-index:99999;
+    width:32px;height:32px;
+    top:0;left:0;
+    filter:drop-shadow(0 0 4px rgba(201,168,76,0.6));
+    will-change:transform;
+    transition:filter .15s ease;
+  `;
+  document.body.appendChild(ship);
+
+  let cx = -100, cy = -100; // posición actual
+  let tx = -100, ty = -100; // posición target (mouse)
+  let angle = -45;           // ángulo de rotación de la nave
+  let lastX = -100, lastY = -100;
+  let thrusterTimer = 0;
+
+  // Seguir al mouse con leve inercia
+  document.addEventListener('mousemove', e => {
+    tx = e.clientX;
+    ty = e.clientY;
+  });
+
+  // Hover en elementos interactivos
+  const interactiveSelectors = 'a,button,.planet,.FB,.DC2,.NS-I,.zm-btn,#srch-btn,#theme-toggle,[onclick],[tabindex="0"]';
+  document.addEventListener('mouseover', e => {
+    if(e.target.closest(interactiveSelectors)){
+      ship.style.filter = 'drop-shadow(0 0 10px rgba(201,168,76,0.95))';
+      ship.style.transform = ship.style.transform.replace(/scale\([^)]+\)/,'') + ' scale(1.2)';
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if(e.target.closest(interactiveSelectors)){
+      ship.style.filter = 'drop-shadow(0 0 4px rgba(201,168,76,0.6))';
+    }
+  });
+
+  // Click: contracción
+  document.addEventListener('mousedown', () => {
+    ship.style.filter = 'drop-shadow(0 0 16px rgba(201,168,76,1))';
+  });
+  document.addEventListener('mouseup', () => {
+    ship.style.filter = 'drop-shadow(0 0 4px rgba(201,168,76,0.6))';
+  });
+
+  // Estela de propulsión
+  function spawnThruster(x, y){
+    const d = document.createElement('div');
+    d.className = 'thruster-dot';
+    // Offset hacia atrás según ángulo
+    const rad = (angle - 180) * Math.PI / 180;
+    const ox = Math.cos(rad) * 10;
+    const oy = Math.sin(rad) * 10;
+    d.style.left = (x + ox) + 'px';
+    d.style.top  = (y + oy) + 'px';
+    // Variar tamaño y color
+    const size = 2 + Math.random() * 3;
+    const colors = ['rgba(201,168,76,0.8)','rgba(255,140,40,0.7)','rgba(255,220,100,0.6)'];
+    d.style.width  = size + 'px';
+    d.style.height = size + 'px';
+    d.style.background = colors[Math.floor(Math.random()*colors.length)];
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 500);
+  }
+
+  // Loop de animación
+  (function animShip(){
+    // Interpolación suave
+    cx += (tx - cx) * 0.18;
+    cy += (ty - cy) * 0.18;
+
+    // Calcular ángulo de movimiento
+    const dx = cx - lastX;
+    const dy = cy - lastY;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    if(dist > 0.5){
+      // Rotar nave en dirección de movimiento
+      const targetAngle = Math.atan2(dy, dx) * 180/Math.PI + 90;
+      // Suavizar rotación
+      let diff = targetAngle - angle;
+      while(diff > 180) diff -= 360;
+      while(diff < -180) diff += 360;
+      angle += diff * 0.12;
+
+      // Estela cada N frames
+      thrusterTimer++;
+      if(thrusterTimer % 3 === 0 && dist > 2){
+        spawnThruster(cx, cy);
+      }
+    }
+
+    lastX = cx; lastY = cy;
+
+    ship.style.transform = `translate(${cx - 16}px, ${cy - 16}px) rotate(${angle}deg)`;
+
+    requestAnimationFrame(animShip);
+  })();
 })();
 
 </script>
