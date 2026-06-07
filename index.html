@@ -3878,7 +3878,7 @@ h2.sttl {
         <div class="FG rev"><label class="FLBL">¿Cómo puedo ayudarte? *</label><textarea class="FTXT" id="f-msg" placeholder="Describe tu proyecto o necesidad"></textarea></div>
         <div class="rev" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
           <div class="bP" id="fsend" onclick="sendForm()">Enviar consulta</div>
-          <div style="font-family:'Space Mono',monospace;font-size:.46rem;color:var(--mu);">Se abrirá tu cliente de correo</div>
+          <div style="font-family:'Space Mono',monospace;font-size:.46rem;color:var(--mu);">Respuesta en menos de 24 horas</div>
         </div>
       </div>
     </div>
@@ -4278,22 +4278,76 @@ function revealInit(){
 
 // ══ FORM (real mailto:) ══
 function sendForm(){
-  const btn=document.getElementById('fsend'); if(!btn) return;
-  const n=(document.getElementById('f-name')?.value||'').trim();
-  const e=(document.getElementById('f-email')?.value||'').trim();
-  const o=(document.getElementById('f-org')?.value||'').trim();
-  const m=(document.getElementById('f-msg')?.value||'').trim();
-  if(!n||!e||!m){
-    const orig=btn.textContent; btn.style.background='#7a1010'; btn.textContent='Completa los campos requeridos';
-    setTimeout(()=>{btn.style.background=''; btn.textContent=orig;},2200); return;
+  const btn = document.getElementById('fsend');
+  if(!btn) return;
+  const n = (document.getElementById('f-name')?.value||'').trim();
+  const e = (document.getElementById('f-email')?.value||'').trim();
+  const o = (document.getElementById('f-org')?.value||'').trim();
+  const m = (document.getElementById('f-msg')?.value||'').trim();
+
+  // Validación
+  if(!n || !e || !m){
+    btn.style.background='#7a1010';
+    btn.textContent='Completa los campos requeridos';
+    setTimeout(()=>{btn.style.background=''; btn.textContent='Enviar consulta';}, 2400);
+    return;
   }
-  btn.style.pointerEvents='none'; btn.textContent='Abriendo correo...';
-  const sub=encodeURIComponent(`Contacto desde jorgeacasas.com — ${n}`);
-  const body=encodeURIComponent(`Nombre: ${n}\nEmail: ${e}\nOrganización: ${o||'No indicada'}\n\n${m}\n\n—\nEnviado desde jorgeacasas.com`);
-  window.location.href=`mailto:jcasasacero@gmail.com?subject=${sub}&body=${body}`;
-  setTimeout(()=>{btn.style.background='#1a7a40'; btn.style.color='#fff'; btn.textContent='¡Listo! Revisa tu cliente de correo';
-    setTimeout(()=>{btn.style.background=''; btn.style.color=''; btn.style.pointerEvents=''; btn.textContent='Enviar mensaje';},4000);
-  },800);
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  if(!emailOk){
+    btn.style.background='#7a1010';
+    btn.textContent='Revisa tu correo electrónico';
+    setTimeout(()=>{btn.style.background=''; btn.textContent='Enviar consulta';}, 2400);
+    return;
+  }
+
+  // Estado enviando
+  btn.style.pointerEvents = 'none';
+  btn.textContent = 'Enviando...';
+
+  // Envío a Formspree
+  fetch('https://formspree.io/f/mzdqenwp', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name:         n,
+      email:        e,
+      organization: o || 'No indicada',
+      message:      m,
+      _subject:     `Consulta desde jac-universe-web — ${n}`,
+      _replyto:     e
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if(data.ok){
+      // Éxito
+      btn.style.background = 'rgba(80,180,100,.2)';
+      btn.style.borderColor = 'rgba(80,180,100,.5)';
+      btn.style.color = '#80e898';
+      btn.textContent = 'Mensaje enviado — te contacto pronto';
+      // Limpiar campos
+      ['f-name','f-email','f-org','f-msg'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.value = '';
+      });
+      setTimeout(()=>{
+        btn.style.background=''; btn.style.borderColor='';
+        btn.style.color=''; btn.textContent='Enviar consulta';
+        btn.style.pointerEvents='auto';
+      }, 5000);
+    } else {
+      throw new Error(data.error || 'Error desconocido');
+    }
+  })
+  .catch(err => {
+    btn.style.background='#7a1010';
+    btn.textContent='Error al enviar — intenta de nuevo';
+    btn.style.pointerEvents='auto';
+    setTimeout(()=>{btn.style.background=''; btn.textContent='Enviar consulta';}, 3000);
+  });
 }
 
 // ══ UI ══
