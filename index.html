@@ -41,17 +41,8 @@
   <!-- ══ Font preload ══ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- ══ PWA básico ══ -->
-  <meta name="theme-color" content="#04020a">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Jorge Casas">
-
-<title>Jorge Casas Acero — Digital Universe</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400&family=Syne:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400&family=Syne:wght@700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400&family=Syne:wght@700&display=swap"></noscript>
 <style>
 
 /* ══ RESET ══ */
@@ -923,6 +914,32 @@ a, button, .planet, .FB, .DC2, .NS-I, .zm-btn, #srch-btn,
 @keyframes thrusterFade {
   0%   { opacity: 0.8; transform: translate(-50%,-50%) scale(1); }
   100% { opacity: 0; transform: translate(-50%,-50%) scale(0.1); }
+}
+
+
+/* ══ FONT PERFORMANCE ══ */
+/* Fallback stack mientras cargan las fuentes web */
+body {
+  font-family: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+}
+.plbl, .stag, .badge, .FB, #srch-in, #dir-search, .TNAME {
+  font-family: 'Space Mono', 'Courier New', Courier, monospace;
+}
+.planet-core span, .NS-N, .TNAME {
+  font-family: 'Syne', 'Trebuchet MS', 'Gill Sans', sans-serif;
+}
+/* Reducir FOUT — texto visible inmediatamente con fallback */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Mono';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Syne';
+  font-display: swap;
 }
 
 </style>
