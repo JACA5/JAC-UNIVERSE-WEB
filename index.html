@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
   <!-- ══ SEO & Social Meta Tags ══ -->
   <meta name="description" content="Jorge Andrés Casas Acero — Consultor en Transformación Digital e IA, profesor universitario y diseñador instruccional. Bogotá, Colombia.">
   <meta name="keywords" content="transformación digital, inteligencia artificial, diseño instruccional, consultoría IA, educación virtual, Jorge Casas Acero">
@@ -1041,6 +1041,97 @@ body {
 @keyframes loaderBar {
   0%   { transform: translateX(-100%); }
   100% { transform: translateX(200%); }
+}
+
+
+/* ══ BREAKPOINTS MÓVILES ADICIONALES ══ */
+
+/* ── 380px — iPhone SE, Android básico ── */
+@media(max-width:380px){
+  /* Sistema solar: zoom out automático para que quepan los planetas */
+  #uni-inner{ transform: scale(0.52) !important; }
+
+  /* Tipografía: tamaño mínimo legible */
+  body{ font-size: 14px; }
+  .sttl{ font-size: clamp(1.3rem, 6vw, 1.8rem) !important; }
+  .stag{ font-size: .42rem; letter-spacing:.12em; }
+
+  /* Grids: 1 columna siempre */
+  .DG, #dir-grid{ grid-template-columns: 1fr !important; }
+  .TGRID{ grid-template-columns: 1fr !important; }
+
+  /* Controles flotantes: reorganizar para no solaparse */
+  .zm-wrap{ bottom: 64px !important; right: 8px !important; }
+  #srch-btn{ bottom: 64px !important; left: 8px !important; }
+  #theme-toggle{ bottom: 64px !important; right: 48px !important; }
+  #copyright-bar{ font-size: .38rem; padding: 0 8px; }
+
+  /* Secciones: padding reducido */
+  .W{ padding: 0 16px !important; }
+  .TSEC{ padding: 0 16px 40px !important; }
+
+  /* Directorio: filtros en scroll horizontal */
+  .BFS{ flex-wrap: nowrap !important; overflow-x: auto; padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .BFS::-webkit-scrollbar{ display: none; }
+  .FB{ flex-shrink: 0; }
+
+  /* Navbar: texto más corto */
+  .plbl{ font-size: .44rem; }
+
+  /* Banner: más lento en pantallas pequeñas */
+  #banner-track{ animation-duration: 40s !important; }
+}
+
+/* ── 320px — Android muy pequeño ── */
+@media(max-width:320px){
+  #uni-inner{ transform: scale(0.42) !important; }
+  .sttl{ font-size: 1.2rem !important; }
+  .W{ padding: 0 12px !important; }
+}
+
+/* ── Landscape en móvil ── */
+@media(max-height:500px) and (orientation:landscape){
+  /* En horizontal, el universo ocupa solo el viewport */
+  #uni{ height: 100vh; }
+  #uni-inner{ transform: scale(0.55) !important; }
+  /* Secciones en scroll horizontal con altura fija */
+  .pg{ min-height: 100vh; overflow-y: auto; }
+  /* Ocultar copyright en landscape para ganar espacio */
+  #copyright-bar{ display: none; }
+}
+
+/* ── 1440px+ — Pantallas grandes / 4K ── */
+@media(min-width:1440px){
+  /* Sistema solar más grande */
+  #uni-inner{ transform: scale(1.15); }
+  /* Texto ligeramente más grande */
+  .sttl{ font-size: clamp(2.2rem, 3vw, 3.2rem); }
+  /* Grids con más columnas */
+  .DG, #dir-grid{ grid-template-columns: repeat(4, 1fr) !important; }
+  /* Más espacio en secciones */
+  .W{ max-width: 1200px; }
+}
+
+/* ── Touch: agrandar targets táctiles en móvil ── */
+@media(pointer:coarse){
+  .planet::after{ inset: -14px !important; }
+  .FB{ min-height: 40px; padding: 8px 14px; }
+  .zm-btn{ width: 38px !important; height: 38px !important; }
+  /* Ocultar cursor glow en touch */
+  #cursor-glow, #spaceship-cursor-wrap{ display: none !important; }
+}
+
+/* ── Safe area para iPhone con notch ── */
+@supports(padding: max(0px)){
+  #copyright-bar{
+    padding-bottom: max(4px, env(safe-area-inset-bottom));
+    padding-left:   max(12px, env(safe-area-inset-left));
+    padding-right:  max(12px, env(safe-area-inset-right));
+  }
+  .zm-wrap{
+    bottom: max(36px, calc(36px + env(safe-area-inset-bottom)));
+  }
 }
 
 </style>
