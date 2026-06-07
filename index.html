@@ -41,7 +41,7 @@
   <!-- ══ Font preload ══ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400&family=Syne:wght@700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Space+Mono:wght@400&family=Syne:wght@400..800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400&family=Syne:wght@700&display=swap"></noscript>
 <style>
 
@@ -1131,6 +1131,196 @@ body {
   }
   .zm-wrap{
     bottom: max(36px, calc(36px + env(safe-area-inset-bottom)));
+  }
+}
+
+
+/* ══ SISTEMA TIPOGRÁFICO 2026 ══ */
+
+/* ── Escala modular (ratio 1.25 — Major Third) ── */
+:root {
+  /* Tamaños — escala de 7 tokens */
+  --text-xs:   0.72rem;   /* 11.5px → labels decorativos, badges, copyright */
+  --text-sm:   0.82rem;   /* 13.1px → labels UI secundarios, metadata */
+  --text-base: 1rem;      /* 16px   → body text estándar */
+  --text-md:   1.12rem;   /* 17.9px → lead text, intro paragraphs */
+  --text-lg:   1.4rem;    /* 22.4px → subheadings, card titles */
+  --text-xl:   clamp(1.6rem, 2.5vw, 2.2rem);  /* section headings fluid */
+  --text-2xl:  clamp(2.2rem, 4vw, 3.2rem);    /* display headings fluid */
+
+  /* Line heights — 4 valores */
+  --lh-tight:  1.1;   /* headings display */
+  --lh-snug:   1.3;   /* subtítulos, cards */
+  --lh-normal: 1.65;  /* body text */
+  --lh-loose:  1.8;   /* párrafos largos, descripciones */
+
+  /* Letter spacings — 4 valores */
+  --ls-tight:  -0.02em;  /* display grande */
+  --ls-normal:  0em;     /* body text */
+  --ls-wide:    0.08em;  /* labels normales */
+  --ls-wider:   0.18em;  /* stag, all-caps labels */
+}
+
+/* ── Aplicar escala al body y elementos base ── */
+body {
+  font-size: var(--text-base);
+  line-height: var(--lh-normal);
+}
+
+/* ── Headings display (h2 main) — fluid ── */
+.sttl {
+  font-size: var(--text-2xl) !important;
+  line-height: var(--lh-tight) !important;
+  letter-spacing: var(--ls-tight) !important;
+}
+
+/* ── Section headings (h3) ── */
+h3, .sub-heading {
+  font-size: var(--text-lg) !important;
+  line-height: var(--lh-snug) !important;
+}
+
+/* ── Body text en páginas ── */
+.pg p:not(.stag):not(.badge):not([class*="lbl"]):not([class*="tag"]) {
+  font-size: var(--text-base);
+  line-height: var(--lh-loose);
+}
+
+/* ── Lead paragraphs ── */
+.lead, .intro {
+  font-size: var(--text-md) !important;
+  line-height: var(--lh-loose) !important;
+}
+
+/* ── Stag labels (sobre headings) ── */
+.stag {
+  font-size: var(--text-xs) !important;
+  letter-spacing: var(--ls-wider) !important;
+  line-height: var(--lh-tight) !important;
+}
+
+/* ── Badges y labels UI ── */
+.badge, .TTAG, .TNAME {
+  font-size: var(--text-xs) !important;
+  letter-spacing: var(--ls-wide) !important;
+}
+
+/* ── Cards directorio ── */
+.DN {
+  font-size: var(--text-sm) !important;
+  line-height: var(--lh-snug) !important;
+  letter-spacing: var(--ls-wide) !important;
+}
+.DD {
+  font-size: var(--text-sm) !important;
+  line-height: var(--lh-normal) !important;
+}
+
+/* ── Testimonios ── */
+.TQ {
+  font-size: var(--text-md) !important;
+  line-height: var(--lh-loose) !important;
+}
+.TNAME {
+  font-size: var(--text-sm) !important;
+}
+.TROLE {
+  font-size: var(--text-xs) !important;
+  letter-spacing: var(--ls-wide) !important;
+}
+
+/* ── Copyright, metadata, coords ── */
+.copy-404, #copyright-bar, .coords {
+  font-size: var(--text-xs) !important;
+  letter-spacing: var(--ls-wider) !important;
+}
+
+/* ══ VARIABLE FONT AXES — efectos cinéticos ══ */
+
+/* Headings: aumentan peso en hover (eje wght) */
+.sttl,
+h2.sttl {
+  transition: font-variation-settings .3s ease;
+  font-variation-settings: 'wght' 300;
+}
+.sttl:hover {
+  font-variation-settings: 'wght' 500;
+}
+
+/* Planet labels: suben de peso al hover */
+.plbl {
+  transition: font-variation-settings .2s ease, color .2s ease;
+  font-variation-settings: 'wght' 400;
+}
+.planet:hover .plbl {
+  font-variation-settings: 'wght' 700;
+  color: var(--gold);
+}
+
+/* Nav items: peso aumenta en hover */
+.NS-N {
+  transition: font-variation-settings .15s ease;
+  font-variation-settings: 'wght' 700;
+}
+.NS-I:hover .NS-N {
+  font-variation-settings: 'wght' 900;
+}
+
+/* Botones de filtro: bold on active */
+.FB {
+  font-variation-settings: 'wght' 400;
+  transition: font-variation-settings .15s ease;
+}
+.FB.act, .FB:hover {
+  font-variation-settings: 'wght' 700;
+}
+
+/* ══ FLUID TYPOGRAPHY para headings de sección ══ */
+/* Aplicar clamp() a todos los h2 que aún usan tamaños fijos */
+.pg h2:not(.sttl) {
+  font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+  line-height: var(--lh-snug);
+}
+
+/* Números display (404, estadísticas, contadores) */
+.num-404 {
+  font-size: clamp(4rem, 12vw, 7rem) !important;
+  line-height: 1 !important;
+  letter-spacing: var(--ls-tight) !important;
+}
+
+/* ══ TAMAÑOS MÍNIMOS — Mobile readability fix ══ */
+/* Space Mono pequeño: subir a mínimo legible en body context */
+.TROLE, .DDF, .DTYPE, .DLNK {
+  font-size: max(var(--text-xs), 11px) !important;
+}
+
+/* Filtros del directorio */
+.FB {
+  font-size: max(0.72rem, 11px) !important;
+}
+
+/* Copyright bar */
+#copyright-bar {
+  font-size: max(0.58rem, 9.5px) !important;
+}
+
+@media(max-width:640px){
+  /* Mobile: subir todos los textos un step */
+  :root {
+    --text-xs:   0.78rem;
+    --text-sm:   0.88rem;
+    --text-base: 1.05rem;
+    --text-md:   1.15rem;
+  }
+}
+
+@media(max-width:380px){
+  :root {
+    --text-xs:   0.8rem;
+    --text-sm:   0.9rem;
+    --text-base: 1.08rem;
+    --text-md:   1.18rem;
   }
 }
 
