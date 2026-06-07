@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>404 — Planeta no encontrado · Jorge Casas Acero</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:wght@400&family=Syne:wght@700&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --white: #ede9e3;
+      --mu: rgba(237,233,227,.38);
+      --bg: rgba(201,168,76,.12);
+      --black: #04020a;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Canvas estrellas */
+    #cv { position: fixed; inset: 0; z-index: 0; }
+
+    /* Contenido */
+    .wrap {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 40px 24px;
+      max-width: 560px;
+    }
+
+    /* Órbita animada */
+    .orbit-404 {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 40px;
+    }
+    .sun-404 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #c9a84c, #6a4a00);
+      box-shadow: 0 0 24px rgba(201,168,76,.6), 0 0 60px rgba(201,168,76,.2);
+    }
+    .ring-404 {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.2);
+      animation: spin404 4s linear infinite;
+    }
+    .ring-404::after {
+      content: '';
+      position: absolute;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #c06060;
+      top: -5px; left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(192,96,96,.8);
+    }
+    .ring-404-2 {
+      inset: 20px;
+      animation-duration: 6s;
+      animation-direction: reverse;
+      border-color: rgba(201,168,76,.1);
+    }
+    .ring-404-2::after {
+      width: 7px; height: 7px;
+      background: #6aaec8;
+      top: -3.5px;
+      box-shadow: 0 0 8px rgba(106,174,200,.8);
+    }
+    @keyframes spin404 {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Número 404 */
+    .num-404 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(4rem, 15vw, 7rem);
+      color: rgba(201,168,76,.12);
+      letter-spacing: -.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .num-404::after {
+      content: '404';
+      position: absolute;
+      inset: 0;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,.3);
+    }
+
+    .tag-404 {
+      font-family: 'Space Mono', monospace;
+      font-size: .52rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,.5);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 300;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    p {
+      font-size: .94rem;
+      color: var(--mu);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+
+    /* Botón volver */
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 2px;
+      background: rgba(201,168,76,.06);
+      color: var(--gold);
+      font-family: 'Space Mono', monospace;
+      font-size: .52rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background .2s, border-color .2s, transform .2s;
+      cursor: pointer;
+    }
+    .btn-home:hover {
+      background: rgba(201,168,76,.12);
+      border-color: rgba(201,168,76,.6);
+      transform: translateY(-2px);
+    }
+    .btn-home svg {
+      width: 14px; height: 14px;
+    }
+
+    /* Coordenadas decorativas */
+    .coords {
+      margin-top: 40px;
+      font-family: 'Space Mono', monospace;
+      font-size: .42rem;
+      color: rgba(201,168,76,.2);
+      letter-spacing: .1em;
+    }
+
+    /* Copyright */
+    .copy-404 {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: .42rem;
+      color: rgba(201,168,76,.18);
+      letter-spacing: .1em;
+      white-space: nowrap;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="cv"></canvas>
+
+<div class="wrap">
+  <div class="orbit-404">
+    <div class="sun-404"></div>
+    <div class="ring-404"></div>
+    <div class="ring-404 ring-404-2"></div>
+  </div>
+
+  <div class="num-404">404</div>
+  <div class="tag-404">Planeta no encontrado</div>
+
+  <h1>Te perdiste en el<br><em>espacio interestelar</em></h1>
+
+  <p>La coordenada que buscas no existe en este universo.<br>
+  Puede que el planeta haya cambiado de órbita, o que la ruta nunca haya existido.</p>
+
+  <a href="/" class="btn-home">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3">
+      <path d="M6 1L1 7l5 6M1 7h12"/>
+    </svg>
+    Volver al universo
+  </a>
+
+  <div class="coords">
+    LAT 4.7110° N &nbsp;·&nbsp; LON 74.0721° W &nbsp;·&nbsp; ALT ∞
+  </div>
+</div>
+
+<div class="copy-404">© 2026 Jorge Andrés Casas Acero</div>
+
+<script>
+// Mini starfield para el 404
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+let stars = [];
+
+function resize(){
+  cv.width = window.innerWidth;
+  cv.height = window.innerHeight;
+  initStars();
+}
+
+function initStars(){
+  stars = [];
+  const N = 200;
+  for(let i = 0; i < N; i++){
+    stars.push({
+      x: Math.random() * cv.width,
+      y: Math.random() * cv.height,
+      r: Math.random() < 0.05 ? 1.5 : 0.5 + Math.random() * 0.8,
+      a: 0.2 + Math.random() * 0.6,
+      twinkle: Math.random() * Math.PI * 2,
+      speed: 0.008 + Math.random() * 0.016,
+      gold: Math.random() < 0.06
+    });
+  }
+}
+
+function draw(){
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  stars.forEach(s => {
+    s.twinkle += s.speed;
+    const alpha = s.a * (0.6 + 0.4 * Math.sin(s.twinkle));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = s.gold
+      ? `rgba(201,168,76,${alpha})`
+      : `rgba(220,210,195,${alpha})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+
+window.addEventListener('resize', resize);
+resize();
+draw();
+</script>
+</body>
+</html>
