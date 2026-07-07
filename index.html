@@ -1896,6 +1896,197 @@ input:focus, textarea:focus {
   .bP::before { display: none; }
 }
 
+
+/* ══ DIAGNÓSTICO DE MADUREZ DIGITAL ══ */
+#diag-overlay {
+  position: fixed; inset: 0; z-index: 100001;
+  background: rgba(3,2,8,.92);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+}
+#diag-overlay.open { display: flex; animation: diagIn .3s ease; }
+@keyframes diagIn { from { opacity: 0; } to { opacity: 1; } }
+
+#diag-box {
+  width: 100%; max-width: 680px;
+  background: linear-gradient(165deg, #0a0704, #060402);
+  border: 1px solid rgba(201,168,76,.18);
+  border-radius: 6px;
+  padding: 40px 44px;
+  position: relative;
+  box-shadow: 0 30px 90px rgba(0,0,0,.6), 0 0 0 1px rgba(201,168,76,.05), inset 0 1px 0 rgba(255,255,255,.04);
+  max-height: 92vh; overflow-y: auto;
+}
+#diag-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,168,76,.2); border-radius: 50%;
+  background: none; color: rgba(237,233,227,.5);
+  font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: color .2s, border-color .2s, transform .2s;
+}
+#diag-close:hover { color: var(--gold); border-color: rgba(201,168,76,.5); transform: rotate(90deg); }
+
+.diag-tag {
+  font-family: 'Space Mono', monospace; font-size: .68rem;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(201,168,76,.6); margin-bottom: 10px;
+}
+.diag-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300;
+  line-height: 1.2; color: var(--white); margin-bottom: 14px;
+}
+.diag-title em { font-style: italic; color: var(--gold); }
+.diag-desc {
+  font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+  color: var(--mu); line-height: 1.7; margin-bottom: 28px;
+}
+
+/* Progreso */
+#diag-progress { margin-bottom: 26px; }
+#diag-prog-txt {
+  display: flex; justify-content: space-between;
+  font-family: 'Space Mono', monospace; font-size: .68rem;
+  color: var(--mu); letter-spacing: .08em; margin-bottom: 8px;
+}
+#diag-prog-bar { height: 2px; background: rgba(201,168,76,.12); border-radius: 1px; overflow: hidden; }
+#diag-prog-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, #9a7830, #c9a84c, #e8cd7a);
+  transition: width .4s cubic-bezier(.22,1,.36,1);
+}
+
+/* Dimensión actual */
+.diag-dim {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(110,220,140,.7); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.diag-dim::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: rgba(110,220,140,.7); }
+
+.diag-q {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.22rem; line-height: 1.45;
+  color: var(--white); margin-bottom: 24px; min-height: 70px;
+}
+
+/* Opciones */
+.diag-opts { display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; }
+.diag-opt {
+  padding: 13px 18px;
+  border: 1px solid rgba(201,168,76,.14); border-radius: 4px;
+  background: rgba(201,168,76,.02);
+  font-family: 'Cormorant Garamond', serif; font-size: .96rem;
+  color: rgba(237,233,227,.75); line-height: 1.5;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, transform .15s, color .2s;
+  display: flex; align-items: center; gap: 12px;
+}
+.diag-opt:hover {
+  border-color: rgba(201,168,76,.4);
+  background: rgba(201,168,76,.06);
+  transform: translateX(4px);
+  color: var(--white);
+}
+.diag-opt.sel {
+  border-color: rgba(110,220,140,.55);
+  background: rgba(110,220,140,.07);
+  color: var(--white);
+}
+.diag-opt-n {
+  width: 24px; height: 24px; flex-shrink: 0;
+  border: 1px solid rgba(201,168,76,.3); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  color: rgba(201,168,76,.7);
+  transition: background .2s, color .2s, border-color .2s;
+}
+.diag-opt.sel .diag-opt-n {
+  background: rgba(110,220,140,.85); color: #04120a;
+  border-color: transparent;
+}
+
+/* Navegación */
+.diag-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.diag-btn {
+  padding: 11px 26px;
+  font-family: 'Space Mono', monospace; font-size: .72rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  border-radius: 3px; cursor: pointer;
+  transition: background .2s, border-color .2s, transform .2s, opacity .2s;
+  border: 1px solid rgba(201,168,76,.3);
+  background: rgba(201,168,76,.08); color: var(--gold);
+}
+.diag-btn:hover { background: rgba(201,168,76,.16); transform: translateY(-1px); }
+.diag-btn.ghost { border-color: rgba(237,233,227,.12); background: none; color: var(--mu); }
+.diag-btn.ghost:hover { border-color: rgba(237,233,227,.3); color: var(--white); }
+.diag-btn:disabled { opacity: .3; pointer-events: none; }
+
+/* Resultados */
+#diag-score-wrap { text-align: center; margin: 8px 0 26px; }
+#diag-score-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem; font-weight: 300; line-height: 1;
+  background: linear-gradient(120deg, #e8cd7a, #c9a84c, #9a7830);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#diag-score-lbl {
+  font-family: 'Space Mono', monospace; font-size: .72rem;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--mu); margin-top: 4px;
+}
+#diag-level {
+  display: inline-block; margin-top: 14px;
+  padding: 6px 18px; border-radius: 20px;
+  border: 1px solid rgba(110,220,140,.4);
+  background: rgba(110,220,140,.07);
+  font-family: 'Space Mono', monospace; font-size: .72rem;
+  letter-spacing: .12em; color: rgba(130,230,160,.9);
+}
+#diag-radar-wrap { display: flex; justify-content: center; margin-bottom: 26px; }
+#diag-recs { margin-bottom: 28px; }
+.diag-rec {
+  padding: 16px 18px; margin-bottom: 10px;
+  border-left: 2px solid rgba(201,168,76,.5);
+  background: rgba(201,168,76,.03);
+  border-radius: 0 4px 4px 0;
+}
+.diag-rec-dim {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 5px;
+}
+.diag-rec-txt {
+  font-family: 'Cormorant Garamond', serif; font-size: .95rem;
+  color: rgba(237,233,227,.8); line-height: 1.6;
+}
+.diag-cta-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+@media(max-width: 560px) {
+  #diag-box { padding: 28px 22px; }
+  .diag-q { font-size: 1.08rem; min-height: 85px; }
+  #diag-score-num { font-size: 3.4rem; }
+}
+
+[data-theme="light"] #diag-overlay { background: rgba(235,228,214,.94); }
+[data-theme="light"] #diag-box {
+  background: linear-gradient(165deg, #fbf8f1, #f2ecdf);
+  border-color: rgba(0,0,0,.12);
+  box-shadow: 0 30px 90px rgba(0,0,0,.15);
+}
+[data-theme="light"] .diag-q, [data-theme="light"] .diag-title { color: #1a1208; }
+[data-theme="light"] .diag-opt { color: rgba(30,20,8,.7); background: rgba(122,82,0,.03); border-color: rgba(0,0,0,.1); }
+[data-theme="light"] .diag-opt:hover, [data-theme="light"] .diag-opt.sel { color: #1a1208; }
+[data-theme="light"] .diag-rec-txt { color: rgba(30,20,8,.75); }
+
 </style>
 
   <!-- ══ Schema.org Structured Data ══ -->
@@ -2076,6 +2267,269 @@ document.addEventListener('mousemove', e => {
     sun.appendChild(corona);
   }
 })();
+
+
+// ══════════ DIAGNÓSTICO DE MADUREZ DIGITAL ══════════
+const DIAG_DATA = {
+  dims: ['Estrategia y Liderazgo','Tecnología e Infraestructura','Datos y Analítica','Talento y Cultura','Procesos y Experiencia'],
+  questions: [
+    // Estrategia y Liderazgo
+    { d:0, q:'¿Existe una estrategia digital formal, documentada y conocida por los líderes de la organización?' },
+    { d:0, q:'¿La alta dirección patrocina activamente las iniciativas de transformación digital con presupuesto asignado?' },
+    { d:0, q:'¿Se mide el avance digital con indicadores claros y revisiones periódicas?' },
+    // Tecnología
+    { d:1, q:'¿La infraestructura tecnológica actual (nube, sistemas, integraciones) soporta las necesidades del negocio sin fricciones constantes?' },
+    { d:1, q:'¿La organización adopta nuevas tecnologías (IA, automatización) mediante pilotos estructurados en lugar de esfuerzos aislados?' },
+    { d:1, q:'¿Los sistemas críticos están integrados entre sí y la información fluye sin re-digitación manual?' },
+    // Datos
+    { d:2, q:'¿Las decisiones importantes se apoyan en datos confiables y accesibles, más que en intuición?' },
+    { d:2, q:'¿Existe gobierno de datos: responsables, calidad, seguridad y políticas claras de uso?' },
+    { d:2, q:'¿La organización usa analítica avanzada o IA para anticipar escenarios, no solo para reportar el pasado?' },
+    // Talento
+    { d:3, q:'¿Los equipos tienen las competencias digitales necesarias para su rol actual y se forman continuamente?' },
+    { d:3, q:'¿La cultura organizacional acepta la experimentación y tolera el error como parte del aprendizaje?' },
+    { d:3, q:'¿Existen roles o equipos dedicados a impulsar la transformación (no solo TI operativo)?' },
+    // Procesos
+    { d:4, q:'¿Los procesos clave están digitalizados de punta a punta, sin pasos en papel o correos manuales?' },
+    { d:4, q:'¿La experiencia de clientes o usuarios se diseña y mejora con base en su retroalimentación medida?' },
+    { d:4, q:'¿La organización puede lanzar cambios o mejoras en semanas, no en meses o años?' }
+  ],
+  opts: [
+    'No existe o es muy incipiente',
+    'Hay esfuerzos aislados sin coordinación',
+    'Existe pero con implementación parcial',
+    'Está consolidado en la mayoría de áreas',
+    'Es una fortaleza madura y en mejora continua'
+  ],
+  levels: [
+    { min: 0,  name: 'Inicial',       color: '#c06060', desc: 'La transformación digital aún no despega de forma estructurada. La buena noticia: el potencial de mejora es enorme y los primeros pasos generan impacto rápido.' },
+    { min: 30, name: 'En desarrollo', color: '#d08838', desc: 'Hay avances reales pero fragmentados. El reto ahora es articular esfuerzos bajo una estrategia común y priorizar con criterio.' },
+    { min: 50, name: 'Definido',      color: '#c9a84c', desc: 'La organización tiene bases sólidas. Es momento de escalar lo que funciona y cerrar las brechas de las dimensiones más débiles.' },
+    { min: 70, name: 'Avanzado',      color: '#6aaec8', desc: 'Madurez digital por encima del promedio. El foco debe estar en innovación continua, IA aplicada y ventaja competitiva sostenible.' },
+    { min: 86, name: 'Líder',         color: '#56cc72', desc: 'Nivel de referencia en el mercado. El desafío es mantener el ritmo, anticipar disrupciones y convertir la madurez en resultados de negocio.' }
+  ],
+  recs: {
+    0: 'Formalizar una estrategia digital con objetivos medibles, patrocinio directivo y presupuesto explícito. Sin dirección clara, los esfuerzos se dispersan. Un taller de alineación estratégica con los líderes es el primer paso de mayor retorno.',
+    1: 'Auditar la infraestructura actual e identificar los 2-3 cuellos de botella tecnológicos que más fricción generan. Priorizar integraciones antes que herramientas nuevas: conectar lo que ya existe suele liberar más valor que comprar.',
+    2: 'Establecer gobierno de datos básico: responsables por dominio, un inventario de fuentes críticas y estándares mínimos de calidad. Luego, elegir un caso de uso analítico de alto impacto y demostrarlo en 90 días.',
+    3: 'Diseñar una ruta de formación digital por rol, no genérica. Combinar formación con proyectos reales: las capacidades se consolidan aplicando, no solo en cursos. Identificar y empoderar a los champions internos del cambio.',
+    4: 'Mapear los 3 procesos con más pasos manuales y rediseñarlos de punta a punta con foco en el usuario. Medir la experiencia con datos reales (tiempos, satisfacción, abandono) y establecer ciclos cortos de mejora.'
+  }
+};
+
+let diagState = { step: -1, answers: [] };
+
+function diagOpen(){
+  diagState = { step: -1, answers: new Array(DIAG_DATA.questions.length).fill(null) };
+  document.getElementById('diag-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  diagRender();
+}
+function diagClose(){
+  document.getElementById('diag-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function diagRender(){
+  const c = document.getElementById('diag-content');
+  const s = diagState.step;
+
+  // ── Pantalla de inicio
+  if(s === -1){
+    c.innerHTML = `
+      <div class="diag-tag">Herramienta gratuita</div>
+      <div class="diag-title">Diagnóstico de<br><em>Madurez Digital</em></div>
+      <p class="diag-desc">Evalúa el estado digital de tu organización en 5 dimensiones: estrategia, tecnología, datos, talento y procesos. Al finalizar recibirás tu puntuación, un mapa visual de fortalezas y brechas, y recomendaciones priorizadas según tus resultados.</p>
+      <div style="display:flex;gap:20px;margin-bottom:30px;flex-wrap:wrap;">
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">15 preguntas</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">3-5 minutos</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">Resultado inmediato</div>
+      </div>
+      <button class="diag-btn" onclick="diagState.step=0;diagRender()">Comenzar diagnóstico</button>`;
+    return;
+  }
+
+  // ── Pantalla de resultados
+  if(s >= DIAG_DATA.questions.length){
+    diagResults(c);
+    return;
+  }
+
+  // ── Pregunta actual
+  const q = DIAG_DATA.questions[s];
+  const total = DIAG_DATA.questions.length;
+  const pct = Math.round((s / total) * 100);
+  const optsHtml = DIAG_DATA.opts.map((opt, i) => `
+    <div class="diag-opt ${diagState.answers[s] === i ? 'sel' : ''}" onclick="diagAnswer(${i})">
+      <span class="diag-opt-n">${i+1}</span>${opt}
+    </div>`).join('');
+
+  c.innerHTML = `
+    <div id="diag-progress">
+      <div id="diag-prog-txt"><span>Pregunta ${s+1} de ${total}</span><span>${pct}%</span></div>
+      <div id="diag-prog-bar"><div id="diag-prog-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="diag-dim">${DIAG_DATA.dims[q.d]}</div>
+    <div class="diag-q">${q.q}</div>
+    <div class="diag-opts">${optsHtml}</div>
+    <div class="diag-nav">
+      <button class="diag-btn ghost" onclick="diagState.step--;diagRender()" ${s === 0 ? 'style="visibility:hidden"' : ''}>← Anterior</button>
+      <button class="diag-btn" id="diag-next" onclick="diagState.step++;diagRender()" ${diagState.answers[s] === null ? 'disabled' : ''}>${s === total-1 ? 'Ver resultados' : 'Siguiente →'}</button>
+    </div>`;
+}
+function diagAnswer(i){
+  diagState.answers[diagState.step] = i;
+  // Auto-avance con pequeña pausa para ver la selección
+  diagRender();
+  setTimeout(() => {
+    if(diagState.step < DIAG_DATA.questions.length){
+      diagState.step++;
+      diagRender();
+    }
+  }, 350);
+}
+function diagResults(c){
+  // Puntuación por dimensión (0-100)
+  const dimScores = [0,0,0,0,0];
+  const dimCounts = [0,0,0,0,0];
+  DIAG_DATA.questions.forEach((q, i) => {
+    dimScores[q.d] += (diagState.answers[i] ?? 0);
+    dimCounts[q.d]++;
+  });
+  const dimPct = dimScores.map((sc, i) => Math.round((sc / (dimCounts[i] * 4)) * 100));
+  const globalScore = Math.round(dimPct.reduce((a,b) => a+b, 0) / dimPct.length);
+
+  // Nivel
+  let level = DIAG_DATA.levels[0];
+  DIAG_DATA.levels.forEach(l => { if(globalScore >= l.min) level = l; });
+
+  // Top 3 dimensiones más débiles → recomendaciones
+  const ranked = dimPct.map((p, i) => ({ i, p })).sort((a,b) => a.p - b.p).slice(0, 3);
+  const recsHtml = ranked.map(r => `
+    <div class="diag-rec">
+      <div class="diag-rec-dim">${DIAG_DATA.dims[r.i]} — ${r.p}%</div>
+      <div class="diag-rec-txt">${DIAG_DATA.recs[r.i]}</div>
+    </div>`).join('');
+
+  c.innerHTML = `
+    <div class="diag-tag">Resultados</div>
+    <div class="diag-title">Tu madurez digital</div>
+    <div id="diag-score-wrap">
+      <div id="diag-score-num">${globalScore}</div>
+      <div id="diag-score-lbl">de 100 puntos</div>
+      <div id="diag-level" style="border-color:${level.color}66;background:${level.color}12;color:${level.color};">Nivel: ${level.name}</div>
+    </div>
+    <p class="diag-desc" style="text-align:center;">${level.desc}</p>
+    <div id="diag-radar-wrap"><canvas id="diag-radar" width="340" height="300"></canvas></div>
+    <div class="diag-tag" style="margin-bottom:14px;">Recomendaciones priorizadas</div>
+    <div id="diag-recs">${recsHtml}</div>
+    <div class="diag-cta-row">
+      <button class="diag-btn" onclick="diagClose();go('contact')">Conversemos sobre tus resultados</button>
+      <button class="diag-btn ghost" onclick="diagState={step:-1,answers:new Array(15).fill(null)};diagRender()">Repetir diagnóstico</button>
+    </div>`;
+
+  // Radar chart en canvas
+  requestAnimationFrame(() => diagDrawRadar(dimPct));
+}
+function diagDrawRadar(scores){
+  const cv = document.getElementById('diag-radar');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const cx = W/2, cy = H/2 + 4, R = 100;
+  const N = scores.length;
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const gridCol = isLight ? 'rgba(0,0,0,.12)' : 'rgba(201,168,76,.15)';
+  const txtCol  = isLight ? 'rgba(30,20,8,.55)' : 'rgba(237,233,227,.45)';
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid: 4 anillos
+  for(let ring = 1; ring <= 4; ring++){
+    ctx.beginPath();
+    for(let i = 0; i <= N; i++){
+      const a = (Math.PI * 2 * i / N) - Math.PI/2;
+      const r = R * ring / 4;
+      const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = gridCol;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  // Ejes
+  for(let i = 0; i < N; i++){
+    const a = (Math.PI * 2 * i / N) - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R);
+    ctx.strokeStyle = gridCol;
+    ctx.stroke();
+  }
+  // Polígono de resultados con animación
+  let t = 0;
+  function animPoly(){
+    t = Math.min(t + 0.05, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    ctx.clearRect(0, 0, W, H);
+    // Re-dibujar grid
+    for(let ring = 1; ring <= 4; ring++){
+      ctx.beginPath();
+      for(let i = 0; i <= N; i++){
+        const a = (Math.PI * 2 * i / N) - Math.PI/2;
+        const r = R * ring / 4;
+        i === 0 ? ctx.moveTo(cx + Math.cos(a)*r, cy + Math.sin(a)*r) : ctx.lineTo(cx + Math.cos(a)*r, cy + Math.sin(a)*r);
+      }
+      ctx.strokeStyle = gridCol; ctx.lineWidth = 1; ctx.stroke();
+    }
+    for(let i = 0; i < N; i++){
+      const a = (Math.PI * 2 * i / N) - Math.PI/2;
+      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(a)*R, cy + Math.sin(a)*R);
+      ctx.strokeStyle = gridCol; ctx.stroke();
+    }
+    // Polígono
+    ctx.beginPath();
+    for(let i = 0; i <= N; i++){
+      const idx = i % N;
+      const a = (Math.PI * 2 * idx / N) - Math.PI/2;
+      const r = R * (scores[idx] / 100) * ease;
+      const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(110,220,140,.14)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(110,220,140,.75)';
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    // Puntos
+    for(let i = 0; i < N; i++){
+      const a = (Math.PI * 2 * i / N) - Math.PI/2;
+      const r = R * (scores[i] / 100) * ease;
+      ctx.beginPath();
+      ctx.arc(cx + Math.cos(a)*r, cy + Math.sin(a)*r, 3.2, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(130,230,160,.95)';
+      ctx.fill();
+    }
+    // Labels
+    ctx.font = '9px "Space Mono", monospace';
+    ctx.fillStyle = txtCol;
+    const shortLbls = ['Estrategia','Tecnología','Datos','Talento','Procesos'];
+    for(let i = 0; i < N; i++){
+      const a = (Math.PI * 2 * i / N) - Math.PI/2;
+      const lx = cx + Math.cos(a) * (R + 22);
+      const ly = cy + Math.sin(a) * (R + 18);
+      ctx.textAlign = Math.abs(Math.cos(a)) < .3 ? 'center' : (Math.cos(a) > 0 ? 'left' : 'right');
+      ctx.fillText(shortLbls[i] + ' ' + scores[i] + '%', lx, ly);
+    }
+    if(t < 1) requestAnimationFrame(animPoly);
+  }
+  animPoly();
+}
+// Cerrar con Escape
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && document.getElementById('diag-overlay')?.classList.contains('open')) diagClose();
+});
 
 </script>
 </head>
@@ -2447,7 +2901,7 @@ document.addEventListener('mousemove', e => {
     <h1 class="sr-only">Lab de Inteligencia Artificial — Laboratorio de experimentación con IA</h1><div class="stag">Lab de IA</div><h2 class="sttl">Herramientas<br><em>interactivas</em></h2>
     <div class="LG">
       <div class="LC tilt FL rev">
-        <div><div class="LST slv"><div class="LD"></div>En vivo</div><div class="LICO"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" stroke="rgba(110,220,140,.72)" stroke-width="1"/><circle cx="11" cy="11" r="4.5" stroke="rgba(110,220,140,.4)" stroke-width="1"/><circle cx="11" cy="11" r="1.4" fill="rgba(110,220,140,.9)"/><line x1="11" y1="1" x2="11" y2="6.5" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="11" y1="15.5" x2="11" y2="21" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="1" y1="11" x2="6.5" y2="11" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="15.5" y1="11" x2="21" y2="11" stroke="rgba(110,220,140,.36)" stroke-width="1"/></svg></div><div class="LTT">Diagnóstico de Madurez Digital</div><p class="LDC">Responde 15 preguntas y recibe un análisis completo con recomendaciones priorizadas generadas por IA en tiempo real.</p><div class="LMI"><strong>3-5 min</strong>&nbsp;·&nbsp;<strong>+890</strong> diagnósticos&nbsp;·&nbsp;Gratis</div><div style="display:flex;gap:9px;align-items:center;"><div class="bP">Iniciar diagnóstico</div><span class="badge bF">Gratis</span></div></div>
+        <div><div class="LST slv"><div class="LD"></div>En vivo</div><div class="LICO"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" stroke="rgba(110,220,140,.72)" stroke-width="1"/><circle cx="11" cy="11" r="4.5" stroke="rgba(110,220,140,.4)" stroke-width="1"/><circle cx="11" cy="11" r="1.4" fill="rgba(110,220,140,.9)"/><line x1="11" y1="1" x2="11" y2="6.5" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="11" y1="15.5" x2="11" y2="21" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="1" y1="11" x2="6.5" y2="11" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="15.5" y1="11" x2="21" y2="11" stroke="rgba(110,220,140,.36)" stroke-width="1"/></svg></div><div class="LTT">Diagnóstico de Madurez Digital</div><p class="LDC">Responde 15 preguntas y recibe tu puntuación, mapa de brechas por dimensión y recomendaciones priorizadas al instante.</p><div class="LMI"><strong>3-5 min</strong>&nbsp;·&nbsp;<strong>+890</strong> diagnósticos&nbsp;·&nbsp;Gratis</div><div style="display:flex;gap:9px;align-items:center;"><div class="bP" onclick="diagOpen()" role="button" tabindex="0" onkeydown="if(event.key==='Enter')diagOpen()">Iniciar diagnóstico</div><span class="badge bF">Gratis</span></div></div>
         <div class="LV"><div class="gbg" style="opacity:.18;"></div><div style="position:relative;z-index:1;"><svg width="75" height="75" viewBox="0 0 75 75" fill="none"><circle cx="37.5" cy="37.5" r="35" stroke="rgba(110,220,140,.1)" stroke-width="1"/><circle cx="37.5" cy="37.5" r="25" stroke="rgba(110,220,140,.08)" stroke-width="1"/><circle cx="37.5" cy="37.5" r="15" stroke="rgba(0,190,200,.1)" stroke-width="1"/><circle cx="37.5" cy="37.5" r="4" fill="rgba(110,220,140,.4)"/><line x1="37.5" y1="2.5" x2="37.5" y2="20" stroke="rgba(110,220,140,.26)" stroke-width="1.2"/><line x1="37.5" y1="55" x2="37.5" y2="72.5" stroke="rgba(110,220,140,.26)" stroke-width="1.2"/><line x1="2.5" y1="37.5" x2="20" y2="37.5" stroke="rgba(110,220,140,.26)" stroke-width="1.2"/><line x1="55" y1="37.5" x2="72.5" y2="37.5" stroke="rgba(110,220,140,.26)" stroke-width="1.2"/></svg></div></div>
       </div>
       <div class="LC tilt rev"><div class="LST slv"><div class="LD"></div>En vivo</div><div class="LICO"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" stroke="rgba(110,220,140,.72)" stroke-width="1"/><line x1="5" y1="8.5" x2="15" y2="8.5" stroke="rgba(110,220,140,.42)" stroke-width="1"/><line x1="5" y1="12" x2="12" y2="12" stroke="rgba(110,220,140,.32)" stroke-width="1"/></svg></div><div class="LTT">Generador de Objetivos de Aprendizaje</div><p class="LDC">La IA genera objetivos medibles alineados con la taxonomía de Bloom para tu syllabus.</p><div class="LMI"><strong>30 seg</strong>&nbsp;·&nbsp;<strong>+2.100</strong> generados</div><div style="display:flex;gap:9px;"><div class="bP">Generar</div><span class="badge bF">Gratis</span></div></div>
@@ -5219,5 +5673,14 @@ document.addEventListener('DOMContentLoaded',()=>{
   </div>
 </div>
 
-</div></body>
+</div>
+<!-- ══ MODAL DIAGNÓSTICO MADUREZ DIGITAL ══ -->
+<div id="diag-overlay" role="dialog" aria-modal="true" aria-label="Diagnóstico de madurez digital">
+  <div id="diag-box">
+    <button id="diag-close" aria-label="Cerrar diagnóstico" onclick="diagClose()">✕</button>
+    <div id="diag-content"></div>
+  </div>
+</div>
+
+</body>
 </html>
