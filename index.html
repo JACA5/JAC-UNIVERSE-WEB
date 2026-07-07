@@ -2295,6 +2295,94 @@ textarea.tool-input { resize: vertical; min-height: 76px; line-height: 1.6; }
   .LC.FL { grid-column: span 1; grid-template-columns: 1fr; }
 }
 
+
+/* ══ CURSOS REDISEÑADOS ══ */
+.crs-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.08rem; line-height: 1.8;
+  color: rgba(237,233,227,.72);
+  max-width: 760px; margin-bottom: 26px;
+}
+.crs-intro strong { color: var(--gold); font-weight: 400; }
+.crs-stats { display: flex; gap: 26px; flex-wrap: wrap; margin-bottom: 30px; }
+.crs-stat { display: flex; flex-direction: column; gap: 2px; }
+.crs-stat b {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.7rem;
+  font-weight: 300; color: var(--gold); line-height: 1;
+}
+.crs-stat span {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--mu);
+}
+.crs-filters { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 22px; }
+.crs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 34px; }
+.crs-card {
+  border: 1px solid rgba(176,104,192,.16);
+  background: linear-gradient(165deg, #070312, #0a0518);
+  padding: 26px 24px;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  transition: border-color .3s, transform .25s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+}
+.crs-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(176,104,192,.6), transparent);
+  transform: scaleX(0); transition: transform .45s cubic-bezier(.22,1,.36,1);
+}
+.crs-card:hover { border-color: rgba(176,104,192,.35); transform: translateY(-3px); box-shadow: 0 14px 44px rgba(0,0,0,.4); }
+.crs-card:hover::before { transform: scaleX(1); }
+.crs-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 10px; }
+.crs-cat {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(200,140,215,.85);
+}
+.crs-mode {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 12px; white-space: nowrap;
+  border: 1px solid;
+}
+.crs-mode.virtual    { color: #6adfee; border-color: rgba(0,192,208,.35); background: rgba(0,192,208,.06); }
+.crs-mode.presencial { color: #f0b070; border-color: rgba(208,136,56,.35); background: rgba(208,136,56,.06); }
+.crs-mode.hibrido    { color: #8ce8a5; border-color: rgba(110,220,140,.35); background: rgba(110,220,140,.06); }
+.crs-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.28rem;
+  font-weight: 400; line-height: 1.3; color: var(--white); margin-bottom: 10px;
+}
+.crs-desc {
+  font-family: 'Cormorant Garamond', serif; font-size: .93rem;
+  line-height: 1.68; color: var(--mu); margin-bottom: 14px;
+}
+.crs-for {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .05em; color: rgba(237,233,227,.42);
+  margin-bottom: 16px; line-height: 1.6;
+}
+.crs-for b { color: rgba(200,140,215,.75); font-weight: 400; }
+.crs-cta { margin-top: auto; display: flex; align-items: center; gap: 10px; }
+.crs-corp {
+  border: 1px solid rgba(176,104,192,.22);
+  background: linear-gradient(135deg, rgba(176,104,192,.06), rgba(201,168,76,.04));
+  padding: 30px 34px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.crs-corp h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+  font-weight: 300; color: var(--white);
+}
+.crs-corp h3 em { font-style: italic; color: var(--gold); }
+.crs-corp p {
+  font-family: 'Cormorant Garamond', serif; font-size: .95rem;
+  color: var(--mu); max-width: 560px; line-height: 1.7;
+}
+@media(max-width: 760px){ .crs-grid { grid-template-columns: 1fr; } }
+[data-theme="light"] .crs-card { background: #fff; border-color: rgba(122,60,140,.18); }
+[data-theme="light"] .crs-title { color: #1a1208; }
+[data-theme="light"] .crs-intro { color: rgba(30,20,8,.7); }
+[data-theme="light"] .crs-corp { background: rgba(176,104,192,.05); }
+
 </style>
 
   <!-- ══ Schema.org Structured Data ══ -->
@@ -2830,14 +2918,99 @@ textarea.tool-input { resize: vertical; min-height: 76px; line-height: 1.6; }
 <div id="pg-courses" class="pg" style="background:linear-gradient(155deg,#030210,#070416);position:relative;overflow:hidden;">
   <div class="blob" style="width:360px;height:360px;background:radial-gradient(circle,rgba(176,104,192,.09),transparent);top:-80px;right:-60px;animation-duration:21s;"></div>
   <div class="W">
-    <h1 class="sr-only">Cursos Online — Formación en transformación digital e IA</h1><div class="stag">Cursos online</div><h2 class="sttl">Aprende con<br><em>quien lo vive</em></h2>
-    <div class="CRG">
-      <div class="CR tilt FC rev"><div class="CTH"><div class="gbg"></div><div class="CTI"><div class="CPL"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polygon points="4,2 12.5,7 4,12" fill="rgba(180,90,210,.82)"/></svg></div><div class="CDR">6 sem · 18 mód.</div></div></div><div class="CB"><div><div class="CC2">Curso Insignia · Transf. Digital</div><div class="CT2">Transformación Digital para Líderes: De la estrategia a la ejecución</div><p class="CD2">El programa más completo para directivos. Casos reales, frameworks probados y 847 estudiantes.</p></div><div><div class="CM"><div class="CPR">$197 USD <small>/ acceso total</small></div><div class="CRT"><span class="star">★★★★★</span> 4.9</div></div><div style="margin-top:12px;"><div class="bP">Ver programa</div></div></div></div></div>
-      <div class="CR tilt rev"><div class="CTH"><div class="gbg"></div><div class="CTI"><div class="CPL"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="3.5,1.5 10.5,6 3.5,10.5" fill="rgba(180,90,210,.82)"/></svg></div><div class="CDR">4 sem · 10 mód.</div></div></div><div class="CB"><div class="CC2">Inteligencia Artificial</div><div class="CT2">IA Aplicada para Profesionales</div><p class="CD2">Integra IA en tu trabajo sin programar. Prompts y flujos para multiplicar tu productividad.</p><div class="CM"><div class="CPR">$97 USD</div><div class="CRT"><span class="star">★★★★★</span> 4.8</div></div></div></div>
-      <div class="CR tilt rev"><div class="CTH"><div class="gbg"></div><div class="CTI"><div class="CPL"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="3.5,1.5 10.5,6 3.5,10.5" fill="rgba(180,90,210,.82)"/></svg></div><div class="CDR">3 sem · 8 mód.</div></div></div><div class="CB"><div class="CC2">Diseño Educativo</div><div class="CT2">Diseña Cursos con IA y QM</div><p class="CD2">Metodología completa. Plantillas, rúbricas QM y recursos listos para usar.</p><div class="CM"><div class="CPR">$127 USD</div><div class="CRT"><span class="star">★★★★★</span> 4.9</div></div></div></div>
-      <div class="CR tilt rev"><div class="CTH"><div class="gbg"></div><div class="CTI"><span class="badge bM" style="position:relative;z-index:1;">Membresía</span></div></div><div class="CB"><div class="CC2">Innovación</div><div class="CT2">Innovation Sprint: Del idea al prototipo en 5 días</div><p class="CD2">Valida ideas rápidamente con IA para equipos de 1 a 10 personas.</p><div class="CM"><div class="CPR" style="color:#b868c8;font-size:1rem;">Membresía incl.</div></div><div style="margin-top:10px;"><div class="bO" onclick="go('membership')">Ver membresía</div></div></div></div>
+    <h1 class="sr-only">Cursos Online — Formación en transformación digital e IA</h1>
+    <div class="stag">Formación</div>
+    <h2 class="sttl">Cursos que<br><em>transforman carreras</em></h2>
+
+    <p class="crs-intro">He diseñado e impartido programas de formación <strong>virtuales y presenciales</strong> para universidades, empresas y entidades públicas en Colombia y Estados Unidos. Cada curso nace de la práctica real: metodologías probadas en consultoría, estándares internacionales de calidad <strong>Quality Matters</strong> y un principio innegociable: que cada sesión deje capacidades instaladas, no solo información. Del aula universitaria a la sala de juntas, estos son los programas que he construido.</p>
+
+    <div class="crs-stats">
+      <div class="crs-stat"><b>8+</b><span>Cursos diseñados</span></div>
+      <div class="crs-stat"><b>2</b><span>Modalidades</span></div>
+      <div class="crs-stat"><b>QM</b><span>Estándar de calidad</span></div>
+      <div class="crs-stat"><b>10+</b><span>Años enseñando</span></div>
     </div>
-  </div>
+
+    <div class="crs-filters" id="crs-filters">
+      <button class="FB act" data-cf="all">Todos</button>
+      <button class="FB" data-cf="virtual">Virtuales</button>
+      <button class="FB" data-cf="presencial">Presenciales</button>
+      <button class="FB" data-cf="hibrido">Híbridos</button>
+    </div>
+
+    <div class="crs-grid" id="crs-grid">
+
+      <div class="crs-card rev" data-mode="virtual">
+        <div class="crs-top"><span class="crs-cat">Transformación Digital</span><span class="crs-mode virtual">Virtual</span></div>
+        <div class="crs-title">Transformación Digital para Líderes</div>
+        <p class="crs-desc">De la estrategia a la ejecución: frameworks de diagnóstico, hoja de ruta y gestión del cambio aplicados a casos empresariales reales. El programa insignia para quienes lideran la transformación desde adentro.</p>
+        <div class="crs-for"><b>Dirigido a:</b> directivos, gerentes y responsables de innovación</div>
+        <div class="crs-cta"><div class="bO" onclick="go('contact')">Solicitar información</div></div>
+      </div>
+
+      <div class="crs-card rev" data-mode="hibrido">
+        <div class="crs-top"><span class="crs-cat">Inteligencia Artificial</span><span class="crs-mode hibrido">Híbrido</span></div>
+        <div class="crs-title">IA en las Organizaciones</div>
+        <p class="crs-desc">Cómo adoptar inteligencia artificial con estrategia, ética y resultados: casos de uso por área, evaluación de herramientas, gobierno de IA y diseño de pilotos que demuestran valor en semanas.</p>
+        <div class="crs-for"><b>Dirigido a:</b> equipos directivos y líderes de área de cualquier sector</div>
+        <div class="crs-cta"><div class="bO" onclick="go('contact')">Solicitar información</div></div>
+      </div>
+
+      <div class="crs-card rev" data-mode="virtual">
+        <div class="crs-top"><span class="crs-cat">Talento Humano</span><span class="crs-mode virtual">Virtual</span></div>
+        <div class="crs-title">IA para Talento Humano</div>
+        <p class="crs-desc">Reclutamiento, formación, evaluación y experiencia del colaborador potenciados con IA. Herramientas concretas y criterios éticos para transformar la gestión de personas sin perder lo humano.</p>
+        <div class="crs-for"><b>Dirigido a:</b> líderes y equipos de gestión humana y desarrollo organizacional</div>
+        <div class="crs-cta"><div class="bO" onclick="go('contact')">Solicitar información</div></div>
+      </div>
+
+      <div class="crs-card rev" data-mode="presencial">
+        <div class="crs-top"><span class="crs-cat">Educación</span><span class="crs-mode presencial">Presencial</span></div>
+        <div class="crs-title">IA para Educadores</div>
+        <p class="crs-desc">Formación docente en inteligencia artificial aplicada al aula: diseño de experiencias de aprendizaje, evaluación en la era de la IA y uso responsable. Impartido a instituciones y secretarías de educación.</p>
+        <div class="crs-for"><b>Dirigido a:</b> docentes, coordinadores académicos e instituciones educativas</div>
+        <div class="crs-cta"><div class="bO" onclick="go('contact')">Solicitar información</div></div>
+      </div>
+
+      <div class="crs-card rev" data-mode="virtual">
+        <div class="crs-top"><span class="crs-cat">Comunicación</span><span class="crs-mode virtual">Virtual</span></div>
+        <div class="crs-title">Storytelling para Emprendedores</div>
+        <p class="crs-desc">El arte de contar tu negocio: estructura narrativa, pitch de alto impacto y comunicación que conecta con clientes e inversionistas. Con evaluación asistida por IA para acelerar el progreso de cada participante.</p>
+        <div class="crs-for"><b>Dirigido a:</b> emprendedores, fundadores y equipos comerciales</div>
+        <div class="crs-cta"><div class="bO" onclick="go('contact')">Solicitar información</div></div>
+      </div>
+
+      <div class="crs-card rev" data-mode="presencial">
+        <div class="crs-top"><span class="crs-cat">Liderazgo</span><span class="crs-mode presencial">Presencial</span></div>
+        <div class="crs-title">Liderazgo Transformacional</div>
+        <p class="crs-desc">Liderar el cambio empieza por liderarse a sí mismo: visión, influencia, gestión de equipos en transformación y toma de decisiones en entornos de incertidumbre. Talleres vivenciales con casos reales.</p>
+        <div class="crs-for"><b>Dirigido a:</b> líderes de equipo, mandos medios y alta dirección</div>
+        <div class="crs-cta"><div class="bO" onclick="go('contact')">Solicitar información</div></div>
+      </div>
+
+      <div class="crs-card rev" data-mode="virtual">
+        <div class="crs-top"><span class="crs-cat">Procesos</span><span class="crs-mode virtual">Virtual</span></div>
+        <div class="crs-title">Gestión de Procesos de Negocio (BPM)</div>
+        <p class="crs-desc">Mapear, medir y rediseñar procesos con enfoque digital: notación BPMN, identificación de cuellos de botella, automatización y mejora continua como capacidad organizacional permanente.</p>
+        <div class="crs-for"><b>Dirigido a:</b> analistas, líderes de operaciones y equipos de mejora</div>
+        <div class="crs-cta"><div class="bO" onclick="go('contact')">Solicitar información</div></div>
+      </div>
+
+      <div class="crs-card rev" data-mode="presencial">
+        <div class="crs-top"><span class="crs-cat">Finanzas</span><span class="crs-mode presencial">Presencial</span></div>
+        <div class="crs-title">Análisis Fundamental de Acciones y Valoración por Múltiplos</div>
+        <p class="crs-desc">24 horas académicas de análisis financiero aplicado: estados financieros, múltiplos de valoración y práctica con terminal Bloomberg sobre casos reales de los mercados colombiano y estadounidense.</p>
+        <div class="crs-for"><b>Dirigido a:</b> profesionales de finanzas, inversionistas y estudiantes de posgrado</div>
+        <div class="crs-cta"><div class="bO" onclick="go('contact')">Solicitar información</div></div>
+      </div>
+
+    </div>
+
+    <div class="crs-corp rev">
+      <h3>¿Quieres llevar estos programas<br><em>a tu organización?</em></h3>
+      <p>Todos los cursos se adaptan a las necesidades, tiempos y contexto de tu institución o empresa: desde talleres intensivos de un día hasta programas completos por cohortes, en modalidad virtual, presencial o híbrida.</p>
+      <div class="bP" onclick="go('contact')" role="button" tabindex="0">Diseñemos tu programa</div>
+    </div>
   <div class="NS-W"><div class="NS-T">Continúa explorando</div><div class="NS-G">
 <div class="NS-I" onclick="go('membership')">
       <div class="NS-DOT" style="background:#bab6ae;"></div>
@@ -6451,6 +6624,19 @@ function rmCopyText(btn){
     setTimeout(()=>btn.textContent='Copiar mi ruta', 2000);
   });
 }
+
+// ══ FILTRO DE CURSOS ══
+document.addEventListener('click', e => {
+  const btn = e.target.closest('#crs-filters .FB');
+  if(!btn) return;
+  document.querySelectorAll('#crs-filters .FB').forEach(b => b.classList.remove('act'));
+  btn.classList.add('act');
+  const f = btn.dataset.cf;
+  document.querySelectorAll('#crs-grid .crs-card').forEach(card => {
+    card.style.display = (f === 'all' || card.dataset.mode === f) ? '' : 'none';
+  });
+});
+
 </script>
 </body>
 </html>
