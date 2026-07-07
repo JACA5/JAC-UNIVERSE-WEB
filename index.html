@@ -1616,6 +1616,286 @@ h2.sttl {
 /* Scroll reveal visible en light */
 [data-theme="light"] .rev.visible { opacity: 1 !important; }
 
+
+/* ══════════ VISUAL POLISH PREMIUM ══════════ */
+
+/* ── 1. GRAIN TEXTURE — materialidad de film ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 99990;
+  pointer-events: none;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grainShift 8s steps(10) infinite;
+}
+@keyframes grainShift {
+  0%,100% { transform: translate(0,0); }
+  10% { transform: translate(-5%,-5%); }
+  20% { transform: translate(-10%,5%); }
+  30% { transform: translate(5%,-10%); }
+  40% { transform: translate(-5%,15%); }
+  50% { transform: translate(-10%,5%); }
+  60% { transform: translate(15%,0); }
+  70% { transform: translate(0,10%); }
+  80% { transform: translate(-15%,0); }
+  90% { transform: translate(10%,5%); }
+}
+[data-theme="light"] body::after { opacity: .05; }
+
+/* ── 2. VIGNETTE — foco cinematográfico en el universo ── */
+#uni::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(ellipse at center,
+    transparent 45%,
+    rgba(2,1,5,.25) 78%,
+    rgba(2,1,5,.55) 100%);
+}
+[data-theme="light"] #uni::before {
+  background: radial-gradient(ellipse at center,
+    transparent 50%,
+    rgba(200,190,170,.2) 80%,
+    rgba(180,168,145,.4) 100%);
+}
+
+/* ── 3. SOL CENTRAL — corona viviente (signature element) ── */
+.sun-wrap, .center-star {
+  position: relative;
+}
+#sun-corona {
+  position: absolute;
+  inset: -34px;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle,
+      rgba(201,168,76,.14) 0%,
+      rgba(201,168,76,.05) 42%,
+      transparent 70%);
+  animation: coronaPulse 4.5s ease-in-out infinite;
+  z-index: -1;
+}
+#sun-corona::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,.12);
+  animation: coronaRing 4.5s ease-in-out infinite;
+}
+#sun-corona::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,.06);
+  animation: coronaRing 4.5s ease-in-out infinite 2.2s;
+}
+@keyframes coronaPulse {
+  0%,100% { transform: scale(1);   opacity: .85; }
+  50%      { transform: scale(1.12); opacity: 1; }
+}
+@keyframes coronaRing {
+  0%,100% { transform: scale(.94); opacity: .5; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+/* ── 4. CARDS PREMIUM — luz direccional + borde gradiente ── */
+.DC2, .TC {
+  position: relative;
+  background-clip: padding-box;
+}
+.DC2::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%),
+    rgba(201,168,76,.06), transparent 40%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.DC2:hover::after { opacity: 1; }
+
+/* Borde superior con gradiente en hover de cards del directorio */
+.DC2::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.55), transparent);
+  transform: scaleX(0);
+  transition: transform .45s cubic-bezier(.22,1,.36,1);
+}
+.DC2:hover::before { transform: scaleX(1); }
+
+/* ── 5. HEADINGS con degradado sutil en <em> ── */
+.sttl em, .TSEC-H em {
+  background: linear-gradient(120deg, #e8cd7a 0%, #c9a84c 45%, #9a7830 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+[data-theme="light"] .sttl em,
+[data-theme="light"] .TSEC-H em {
+  background: linear-gradient(120deg, #9a7020 0%, #7a5200 55%, #5a3c00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── 6. SCROLLBAR personalizado ── */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: rgba(6,4,2,.9); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(201,168,76,.35), rgba(201,168,76,.15));
+  border-radius: 4px;
+  border: 2px solid rgba(6,4,2,.9);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(201,168,76,.6), rgba(201,168,76,.3));
+}
+[data-theme="light"] ::-webkit-scrollbar-track { background: #e5ddd0; }
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(122,82,0,.4), rgba(122,82,0,.2));
+  border-color: #e5ddd0;
+}
+
+/* ── 7. SELECTION dorada ── */
+::selection {
+  background: rgba(201,168,76,.28);
+  color: #fff;
+}
+[data-theme="light"] ::selection {
+  background: rgba(122,82,0,.22);
+  color: #1a1208;
+}
+
+/* ── 8. FOCUS RING refinado (mantiene accesibilidad) ── */
+:focus-visible {
+  outline: 2px solid rgba(201,168,76,.85);
+  outline-offset: 3px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 5px rgba(201,168,76,.12);
+}
+
+/* ── 9. BOTONES CTA con profundidad ── */
+.bP {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(201,168,76,.12), inset 0 1px 0 rgba(255,255,255,.08);
+  transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+}
+.bP::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.14), transparent);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+}
+.bP:hover::before { left: 130%; }
+.bP:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201,168,76,.22), inset 0 1px 0 rgba(255,255,255,.1);
+}
+.bO {
+  transition: transform .25s cubic-bezier(.22,1,.36,1), border-color .25s, background .25s;
+}
+.bO:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201,168,76,.5);
+  background: rgba(201,168,76,.06);
+}
+
+/* ── 10. PLANETAS con anillo de energía en hover ── */
+.planet-core {
+  transition: box-shadow .35s ease, transform .35s cubic-bezier(.22,1,.36,1);
+}
+.planet:hover .planet-core {
+  box-shadow:
+    0 0 0 3px rgba(201,168,76,.15),
+    0 0 24px rgba(201,168,76,.35),
+    0 0 60px rgba(201,168,76,.12) !important;
+  transform: scale(1.12);
+}
+
+/* ── 11. TESTIMONIOS — quote glow feat ── */
+.TC.feat {
+  box-shadow: inset 0 0 60px rgba(201,168,76,.03);
+}
+.TC.feat:hover {
+  box-shadow: inset 0 0 80px rgba(201,168,76,.06), 0 8px 40px rgba(0,0,0,.4);
+}
+
+/* ── 12. NAV SUGGESTIONS con desplazamiento de flecha ── */
+.NS-ARR { transition: transform .3s cubic-bezier(.22,1,.36,1); }
+.NS-I:hover .NS-ARR { transform: translateX(5px); }
+.NS-I { transition: background .25s, border-color .25s, transform .25s; }
+.NS-I:hover { transform: translateX(3px); }
+
+/* ── 13. INPUTS con glow al focus ── */
+input:focus, textarea:focus {
+  border-color: rgba(201,168,76,.45) !important;
+  box-shadow: 0 0 0 3px rgba(201,168,76,.08), 0 0 20px rgba(201,168,76,.06);
+  transition: border-color .25s, box-shadow .25s;
+}
+
+/* ── 14. FILTROS del directorio — píldora animada ── */
+.FB {
+  position: relative;
+  transition: color .25s, border-color .25s, background .25s, transform .2s;
+}
+.FB:hover { transform: translateY(-1px); }
+.FB.act {
+  box-shadow: 0 2px 12px rgba(201,168,76,.15), inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* ── 15. LOADER refinado con logo glow ── */
+#loader .loader-sun {
+  animation: loaderSunPulse 2s ease-in-out infinite;
+}
+@keyframes loaderSunPulse {
+  0%,100% { box-shadow: 0 0 18px rgba(201,168,76,.7), 0 0 40px rgba(201,168,76,.3); }
+  50%      { box-shadow: 0 0 28px rgba(201,168,76,.9), 0 0 70px rgba(201,168,76,.45); }
+}
+
+/* ── 16. COPYRIGHT BAR con blur premium ── */
+#copyright-bar {
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  background: rgba(6,4,2,.75) !important;
+  border-top: 1px solid rgba(201,168,76,.08) !important;
+}
+[data-theme="light"] #copyright-bar {
+  background: rgba(240,235,224,.8) !important;
+  border-top-color: rgba(0,0,0,.08) !important;
+}
+
+/* ── 17. TOOLTIP planetas refinado ── */
+.tooltip {
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  box-shadow: 0 12px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.12), inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* ── 18. Reduced motion: desactivar polish animado ── */
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none; }
+  #sun-corona, #sun-corona::before, #sun-corona::after { animation: none; }
+  .bP::before { display: none; }
+}
+
 </style>
 
   <!-- ══ Schema.org Structured Data ══ -->
@@ -1719,7 +1999,85 @@ h2.sttl {
       }
     ]
   }
-  </script>
+  
+// ══ VISUAL POLISH JS ══
+
+// ── 1. Shooting stars ocasionales (cada 8-18s) ──
+(function initShootingStars(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function spawnStar(){
+    const star = document.createElement('div');
+    const fromTop = Math.random() * (window.innerHeight * 0.5);
+    const angle = 18 + Math.random() * 14;
+    const dist  = 300 + Math.random() * 400;
+    star.style.cssText = `
+      position:fixed; z-index:4; pointer-events:none;
+      top:${fromTop}px; left:${Math.random()*window.innerWidth*0.7}px;
+      width:2px; height:2px; border-radius:50%;
+      background:#fff;
+      box-shadow:0 0 6px 1px rgba(255,255,255,.8), 0 0 12px 2px rgba(201,168,76,.4);
+    `;
+    document.body.appendChild(star);
+    const rad = angle * Math.PI/180;
+    const dx = Math.cos(rad) * dist;
+    const dy = Math.sin(rad) * dist;
+    const trail = document.createElement('div');
+    trail.style.cssText = `
+      position:fixed; z-index:3; pointer-events:none;
+      top:${fromTop}px; left:${parseFloat(star.style.left)}px;
+      width:${dist*0.4}px; height:1px;
+      background:linear-gradient(90deg, rgba(255,255,255,.5), transparent);
+      transform:rotate(${angle}deg); transform-origin:left center;
+      opacity:0;
+    `;
+    document.body.appendChild(trail);
+    star.animate([
+      { transform:'translate(0,0)', opacity:0 },
+      { opacity:1, offset:.1 },
+      { transform:`translate(${dx}px,${dy}px)`, opacity:0 }
+    ], { duration: 900, easing:'ease-out' });
+    trail.animate([
+      { opacity:0 }, { opacity:.6, offset:.15 }, { opacity:0 }
+    ], { duration: 900 });
+    setTimeout(()=>{ star.remove(); trail.remove(); }, 950);
+    // Próxima estrella
+    setTimeout(spawnStar, 8000 + Math.random() * 10000);
+  }
+  setTimeout(spawnStar, 5000);
+})();
+
+// ── 2. Mouse-tracking light en cards del directorio ──
+document.addEventListener('mousemove', e => {
+  const card = e.target.closest('.DC2');
+  if(!card) return;
+  const rect = card.getBoundingClientRect();
+  card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+  card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+});
+
+// ── 3. Corona del sol central ──
+(function addSunCorona(){
+  // Buscar la estrella central (logo container)
+  const candidates = ['#center-star', '.center-star', '.sun', '#sun', '.star-c'];
+  let sun = null;
+  for(const sel of candidates){
+    sun = document.querySelector(sel);
+    if(sun) break;
+  }
+  // Fallback: contenedor del logo central en el universo
+  if(!sun){
+    const logo = document.querySelector('#uni-inner .sg-logo');
+    if(logo) sun = logo.parentElement;
+  }
+  if(sun && !document.getElementById('sun-corona')){
+    const corona = document.createElement('div');
+    corona.id = 'sun-corona';
+    sun.style.position = sun.style.position || 'relative';
+    sun.appendChild(corona);
+  }
+})();
+
+</script>
 </head>
 <body>
 
