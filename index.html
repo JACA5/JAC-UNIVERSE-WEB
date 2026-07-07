@@ -2087,6 +2087,163 @@ input:focus, textarea:focus {
 [data-theme="light"] .diag-opt:hover, [data-theme="light"] .diag-opt.sel { color: #1a1208; }
 [data-theme="light"] .diag-rec-txt { color: rgba(30,20,8,.75); }
 
+
+/* ══ HERRAMIENTAS LAB: CANVAS + ROADMAP ══ */
+
+/* Modal ancho para el canvas */
+#diag-box.wide { max-width: 1020px; }
+
+/* Inputs de texto en herramientas */
+.tool-input {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(201,168,76,.03);
+  border: 1px solid rgba(201,168,76,.16);
+  border-radius: 4px;
+  color: var(--white);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  margin-bottom: 18px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.tool-input:focus {
+  outline: none;
+  border-color: rgba(0,192,208,.5);
+  box-shadow: 0 0 0 3px rgba(0,192,208,.08);
+}
+.tool-input::placeholder { color: rgba(237,233,227,.25); }
+textarea.tool-input { resize: vertical; min-height: 76px; line-height: 1.6; }
+
+.tool-select-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 22px; }
+@media(max-width:560px){ .tool-select-grid { grid-template-columns: 1fr; } }
+
+/* ── BUSINESS MODEL CANVAS (Osterwalder layout) ── */
+#bmc-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: auto auto auto;
+  gap: 2px;
+  background: rgba(0,192,208,.15);
+  border: 1px solid rgba(0,192,208,.2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.bmc-cell {
+  background: #08090c;
+  padding: 14px 13px;
+  min-height: 130px;
+  position: relative;
+}
+.bmc-cell.tall { grid-row: span 2; }
+.bmc-cell.wide5 { grid-column: span 5; min-height: 90px; }
+.bmc-cell.c2 { grid-column: span 2; }
+.bmc-h {
+  font-family: 'Space Mono', monospace;
+  font-size: .58rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(0,200,215,.75);
+  margin-bottom: 9px;
+  display: flex; align-items: center; gap: 6px;
+}
+.bmc-h svg { flex-shrink: 0; opacity: .8; }
+.bmc-vp { background: linear-gradient(165deg, #0a0d12, #0d1016); }
+.bmc-vp .bmc-h { color: var(--gold); }
+.bmc-items { list-style: none; padding: 0; margin: 0; }
+.bmc-items li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .84rem; line-height: 1.5;
+  color: rgba(237,233,227,.78);
+  padding: 3px 0 3px 13px;
+  position: relative;
+}
+.bmc-items li::before {
+  content: '';
+  position: absolute; left: 0; top: .62em;
+  width: 5px; height: 5px; border-radius: 1px;
+  background: rgba(0,200,215,.5);
+  transform: rotate(45deg);
+}
+.bmc-vp .bmc-items li::before { background: rgba(201,168,76,.6); }
+@media(max-width: 760px){
+  #bmc-grid { grid-template-columns: 1fr 1fr; }
+  .bmc-cell, .bmc-cell.tall, .bmc-cell.wide5, .bmc-cell.c2 { grid-column: span 1; grid-row: span 1; min-height: auto; }
+}
+
+/* ── ROADMAP TIMELINE ── */
+#rm-timeline { position: relative; padding-left: 34px; margin-bottom: 24px; }
+#rm-timeline::before {
+  content: '';
+  position: absolute; left: 11px; top: 12px; bottom: 12px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(208,136,56,.6), rgba(208,136,56,.15));
+}
+.rm-phase { position: relative; margin-bottom: 26px; }
+.rm-dot {
+  position: absolute; left: -34px; top: 2px;
+  width: 23px; height: 23px; border-radius: 50%;
+  background: #0c0805;
+  border: 1px solid rgba(208,136,56,.55);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  color: rgba(230,160,80,.95);
+  box-shadow: 0 0 12px rgba(208,136,56,.2);
+}
+.rm-phase-h {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.rm-phase-t {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.18rem; color: var(--white);
+}
+.rm-phase-d {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .1em; color: rgba(230,160,80,.7);
+  border: 1px solid rgba(208,136,56,.3);
+  padding: 2px 9px; border-radius: 10px;
+}
+.rm-phase-obj {
+  font-family: 'Cormorant Garamond', serif; font-size: .9rem;
+  color: var(--mu); font-style: italic; margin-bottom: 12px;
+}
+.rm-steps { list-style: none; padding: 0; margin: 0 0 10px; }
+.rm-steps li {
+  font-family: 'Cormorant Garamond', serif; font-size: .94rem;
+  line-height: 1.6; color: rgba(237,233,227,.8);
+  padding: 5px 0 5px 24px; position: relative;
+}
+.rm-steps li::before {
+  content: '';
+  position: absolute; left: 2px; top: .72em;
+  width: 10px; height: 5px;
+  border-left: 1.5px solid rgba(208,136,56,.7);
+  border-bottom: 1.5px solid rgba(208,136,56,.7);
+  transform: rotate(-45deg);
+}
+.rm-qw {
+  padding: 11px 15px;
+  border-left: 2px solid rgba(110,220,140,.55);
+  background: rgba(110,220,140,.05);
+  border-radius: 0 4px 4px 0;
+  font-family: 'Cormorant Garamond', serif; font-size: .88rem;
+  color: rgba(237,233,227,.78); line-height: 1.55;
+}
+.rm-qw strong {
+  font-family: 'Space Mono', monospace; font-size: .56rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(130,230,160,.85);
+  display: block; margin-bottom: 4px;
+}
+
+/* Light theme */
+[data-theme="light"] .bmc-cell { background: #fbf8f1; }
+[data-theme="light"] .bmc-vp { background: linear-gradient(165deg, #fdf9ec, #f7f0dd); }
+[data-theme="light"] .bmc-items li { color: rgba(30,20,8,.75); }
+[data-theme="light"] .tool-input { background: #fff; color: #1a1208; border-color: rgba(0,0,0,.12); }
+[data-theme="light"] .rm-dot { background: #f5efe2; }
+[data-theme="light"] .rm-steps li, [data-theme="light"] .rm-qw { color: rgba(30,20,8,.75); }
+[data-theme="light"] .rm-phase-t { color: #1a1208; }
+
 </style>
 
   <!-- ══ Schema.org Structured Data ══ -->
@@ -2327,6 +2484,7 @@ function diagOpen(){
 }
 function diagClose(){
   document.getElementById('diag-overlay').classList.remove('open');
+  document.getElementById('diag-box').classList.remove('wide');
   document.body.style.overflow = '';
 }
 function diagRender(){
@@ -2530,6 +2688,537 @@ function diagDrawRadar(scores){
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape' && document.getElementById('diag-overlay')?.classList.contains('open')) diagClose();
 });
+
+
+// ══════════ GENERADOR BUSINESS MODEL CANVAS (Osterwalder) ══════════
+const BMC_SECTORS = {
+  'Educación': {
+    partners: ['Instituciones educativas y universidades','Plataformas LMS y EdTech','Expertos y creadores de contenido'],
+    activities: ['Diseño y actualización de contenido formativo','Gestión de la experiencia de aprendizaje','Acompañamiento y evaluación'],
+    resources: ['Contenido y metodología propia','Plataforma tecnológica','Equipo docente / facilitadores'],
+    channels_digital: ['Plataforma web propia','Campañas en redes profesionales (LinkedIn)','Email marketing y webinars'],
+    channels_fisico: ['Aulas y sedes presenciales','Convenios institucionales','Ferias y eventos académicos'],
+    relations: ['Acompañamiento personalizado durante la formación','Comunidad de aprendizaje entre pares','Certificación y seguimiento de egresados']
+  },
+  'Salud': {
+    partners: ['Clínicas, hospitales y aseguradoras','Profesionales de la salud aliados','Proveedores de tecnología médica'],
+    activities: ['Prestación del servicio de salud','Gestión de citas e historias clínicas','Cumplimiento normativo y calidad'],
+    resources: ['Personal médico calificado','Habilitación y licencias sanitarias','Infraestructura y equipos'],
+    channels_digital: ['Telemedicina y agendamiento online','Redes sociales educativas en salud','Directorio médico digital'],
+    channels_fisico: ['Consultorios y sedes físicas','Remisión entre profesionales','Convenios con EPS y empresas'],
+    relations: ['Relación de confianza médico-paciente','Seguimiento post-consulta','Programas de prevención y fidelización']
+  },
+  'Finanzas': {
+    partners: ['Entidades financieras y pasarelas de pago','Reguladores y entes de certificación','Aliados tecnológicos (core bancario, APIs)'],
+    activities: ['Gestión de productos financieros','Análisis y gestión de riesgo','Cumplimiento regulatorio (compliance)'],
+    resources: ['Licencias y autorizaciones regulatorias','Infraestructura tecnológica segura','Capital y respaldo financiero'],
+    channels_digital: ['App y banca digital','Marketing de contenido financiero','Comparadores y marketplaces'],
+    channels_fisico: ['Oficinas y asesores comerciales','Red de aliados y corresponsales','Eventos y networking empresarial'],
+    relations: ['Asesoría financiera personalizada','Autoservicio digital 24/7','Programas de educación financiera']
+  },
+  'Retail / Comercio': {
+    partners: ['Proveedores y fabricantes','Operadores logísticos','Pasarelas de pago y marketplaces'],
+    activities: ['Gestión de inventario y compras','Venta y atención al cliente','Logística y distribución'],
+    resources: ['Inventario y relaciones con proveedores','Puntos de venta (físicos o digitales)','Marca y base de clientes'],
+    channels_digital: ['E-commerce propio','Marketplaces (Amazon, MercadoLibre)','Redes sociales y social selling'],
+    channels_fisico: ['Tiendas físicas','Distribuidores y mayoristas','Ferias comerciales'],
+    relations: ['Atención ágil pre y post venta','Programas de fidelización','Experiencia de compra memorable']
+  },
+  'Tecnología / Software': {
+    partners: ['Proveedores cloud (AWS, Azure, GCP)','Integradores y partners de implementación','Comunidades de desarrolladores'],
+    activities: ['Desarrollo y mantenimiento del producto','Soporte técnico y éxito del cliente','Innovación e I+D continua'],
+    resources: ['Equipo de ingeniería y producto','Propiedad intelectual y código','Infraestructura cloud'],
+    channels_digital: ['Venta self-service en el sitio web','Marketing de contenidos y SEO','Demos y pruebas gratuitas'],
+    channels_fisico: ['Equipo comercial B2B','Partners e integradores','Eventos y conferencias tech'],
+    relations: ['Onboarding y customer success','Soporte técnico multicanal','Comunidad de usuarios y documentación']
+  },
+  'Servicios profesionales': {
+    partners: ['Red de consultores y especialistas aliados','Gremios y asociaciones profesionales','Plataformas de referenciación'],
+    activities: ['Prestación del servicio especializado','Gestión de proyectos y clientes','Desarrollo de metodologías propias'],
+    resources: ['Conocimiento experto y reputación','Metodologías y casos de éxito','Red de contactos profesional'],
+    channels_digital: ['LinkedIn y marca personal','Sitio web con casos de éxito','Webinars y contenido especializado'],
+    channels_fisico: ['Referidos y voz a voz','Networking y eventos del sector','Alianzas institucionales'],
+    relations: ['Relación consultiva de largo plazo','Acompañamiento dedicado por proyecto','Resultados medibles y confianza']
+  },
+  'Manufactura': {
+    partners: ['Proveedores de materias primas','Distribuidores y canales comerciales','Aliados logísticos y de maquila'],
+    activities: ['Producción y control de calidad','Gestión de cadena de suministro','Desarrollo de producto'],
+    resources: ['Planta, maquinaria y equipos','Know-how productivo','Certificaciones de calidad'],
+    channels_digital: ['Catálogo digital B2B','Marketplaces industriales','Marketing técnico especializado'],
+    channels_fisico: ['Fuerza comercial directa','Distribuidores regionales','Ferias industriales'],
+    relations: ['Contratos de suministro estables','Soporte técnico al cliente','Desarrollo conjunto de soluciones']
+  },
+  'Alimentos y bebidas': {
+    partners: ['Proveedores de insumos','Canales HORECA y retail','Plataformas de delivery'],
+    activities: ['Producción y preparación','Gestión de calidad e inocuidad','Marketing y experiencia de marca'],
+    resources: ['Recetas y sello diferenciador','Registro sanitario (INVIMA)','Cocina / planta de producción'],
+    channels_digital: ['Apps de domicilios (Rappi, etc.)','Redes sociales con contenido visual','Venta directa por WhatsApp'],
+    channels_fisico: ['Punto de venta propio','Distribución a tiendas y restaurantes','Eventos y degustaciones'],
+    relations: ['Experiencia y consistencia de producto','Comunidad de marca en redes','Atención cercana y personalizada']
+  },
+  'Turismo': {
+    partners: ['Hoteles, operadores y guías locales','Agencias y plataformas OTA','Entidades de promoción turística'],
+    activities: ['Diseño y operación de experiencias','Gestión de reservas','Atención al viajero'],
+    resources: ['Registro Nacional de Turismo','Red de operadores confiables','Conocimiento del destino'],
+    channels_digital: ['Booking, Airbnb, TripAdvisor','Instagram y contenido de destino','Sitio web con motor de reservas'],
+    channels_fisico: ['Agencias de viaje aliadas','Hoteles y puntos de información','Ferias de turismo'],
+    relations: ['Experiencia memorable y segura','Atención antes, durante y después del viaje','Reseñas y recomendación']
+  },
+  'Otro': {
+    partners: ['Proveedores estratégicos clave','Aliados comerciales y de distribución','Aliados tecnológicos'],
+    activities: ['Producción / prestación del servicio central','Comercialización y ventas','Gestión de la operación'],
+    resources: ['Equipo y conocimiento del negocio','Activos operativos clave','Marca y reputación'],
+    channels_digital: ['Presencia web y redes sociales','Marketing digital','Venta online'],
+    channels_fisico: ['Venta directa y presencial','Distribuidores o intermediarios','Referidos'],
+    relations: ['Atención personalizada','Servicio post-venta','Construcción de confianza']
+  }
+};
+
+const BMC_REVENUE = {
+  'Venta directa':        ['Venta unitaria de producto/servicio','Precios por volumen o paquetes','Ventas cruzadas y complementarias'],
+  'Suscripción':          ['Cuota recurrente mensual o anual','Planes por niveles (básico/pro/premium)','Descuentos por pago anual anticipado'],
+  'Freemium':             ['Versión gratuita como puerta de entrada','Conversión a planes de pago con funciones avanzadas','Servicios premium complementarios'],
+  'Licenciamiento':       ['Licencias de uso por usuario o sede','Contratos corporativos anuales','Fees de implementación y soporte'],
+  'Comisión / Marketplace': ['Comisión porcentual por transacción','Tarifas de publicación o destacados','Servicios de valor agregado a vendedores'],
+  'Publicidad':           ['Venta de espacios publicitarios','Contenido patrocinado','Datos e insights de audiencia (agregados)'],
+  'Servicios / Consultoría': ['Honorarios por proyecto','Retainer mensual de acompañamiento','Talleres, formación y licenciamiento de metodología']
+};
+
+const BMC_COSTS = {
+  'Venta directa':        ['Costo de producto / inventario','Logística y distribución','Marketing y adquisición de clientes'],
+  'Suscripción':          ['Infraestructura tecnológica','Adquisición de clientes (CAC)','Soporte y retención'],
+  'Freemium':             ['Costo de servir a usuarios gratuitos','Desarrollo de producto','Marketing de conversión'],
+  'Licenciamiento':       ['Desarrollo y mantenimiento del producto','Equipo comercial B2B','Soporte e implementación'],
+  'Comisión / Marketplace': ['Tecnología de la plataforma','Adquisición de oferta y demanda','Operación, confianza y seguridad'],
+  'Publicidad':           ['Creación de contenido y audiencia','Tecnología y medición','Equipo comercial de pauta'],
+  'Servicios / Consultoría': ['Nómina del equipo experto (costo principal)','Desarrollo de negocio y propuestas','Herramientas y desplazamientos']
+};
+
+const BMC_STEPS = [
+  { key:'name',    type:'text',     label:'¿Cómo se llama tu negocio o idea?', ph:'Ej: EduData Analytics' },
+  { key:'sector',  type:'select',   label:'¿En qué sector opera?', opts: Object.keys(BMC_SECTORS) },
+  { key:'client',  type:'select',   label:'¿Quién es tu cliente principal?', opts:['Empresas (B2B)','Consumidores (B2C)','Ambos (B2B2C)','Instituciones públicas / educativas'] },
+  { key:'problem', type:'textarea', label:'¿Qué problema concreto resuelves a tu cliente?', ph:'Ej: Las universidades pierden estudiantes porque no detectan a tiempo el riesgo de deserción...' },
+  { key:'solution',type:'textarea', label:'¿Cuál es tu producto o servicio? ¿Cómo lo resuelve?', ph:'Ej: Una plataforma que analiza datos académicos y alerta tempranamente...' },
+  { key:'revenue', type:'select',   label:'¿Cómo generas (o generarás) ingresos principalmente?', opts: Object.keys(BMC_REVENUE) },
+  { key:'channel', type:'select',   label:'¿Cuál es tu canal principal para llegar al cliente?', opts:['Principalmente digital','Principalmente físico / presencial','Híbrido (digital + presencial)'] }
+];
+
+let bmcState = { step: -1, data: {} };
+
+function bmcOpen(){
+  bmcState = { step: -1, data: {} };
+  const box = document.getElementById('diag-box');
+  box.classList.remove('wide');
+  document.getElementById('diag-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  bmcRender();
+}
+
+function bmcRender(){
+  const c = document.getElementById('diag-content');
+  const s = bmcState.step;
+
+  if(s === -1){
+    c.innerHTML = `
+      <div class="diag-tag" style="color:rgba(0,200,215,.7);">Herramienta gratuita</div>
+      <div class="diag-title">Generador de<br><em>Modelo de Negocio</em></div>
+      <p class="diag-desc">Construye tu Business Model Canvas siguiendo la metodología de Alexander Osterwalder. Responde 7 preguntas sobre tu negocio y obtendrás los 9 bloques del canvas completos, listos para descargar en PNG o copiar como texto.</p>
+      <div style="display:flex;gap:20px;margin-bottom:30px;flex-wrap:wrap;">
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">7 preguntas</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">9 bloques generados</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">Descargable en PNG</div>
+      </div>
+      <button class="diag-btn" onclick="bmcState.step=0;bmcRender()">Comenzar</button>`;
+    return;
+  }
+
+  if(s >= BMC_STEPS.length){ bmcResults(c); return; }
+
+  const q = BMC_STEPS[s];
+  const total = BMC_STEPS.length;
+  const pct = Math.round((s/total)*100);
+  const val = bmcState.data[q.key] || '';
+
+  let fieldHtml = '';
+  if(q.type === 'text'){
+    fieldHtml = `<input class="tool-input" id="bmc-field" placeholder="${q.ph||''}" value="${val.replace(/"/g,'&quot;')}" oninput="bmcState.data['${q.key}']=this.value;bmcCheckNext()">`;
+  } else if(q.type === 'textarea'){
+    fieldHtml = `<textarea class="tool-input" id="bmc-field" placeholder="${q.ph||''}" oninput="bmcState.data['${q.key}']=this.value;bmcCheckNext()">${val}</textarea>`;
+  } else {
+    fieldHtml = `<div class="tool-select-grid">` + q.opts.map(o => `
+      <div class="diag-opt ${val===o?'sel':''}" onclick="bmcState.data['${q.key}']='${o.replace(/'/g,"\\'")}';bmcRender();setTimeout(()=>{bmcState.step++;bmcRender()},320)">
+        ${o}</div>`).join('') + `</div>`;
+  }
+
+  c.innerHTML = `
+    <div id="diag-progress">
+      <div id="diag-prog-txt"><span>Paso ${s+1} de ${total}</span><span>${pct}%</span></div>
+      <div id="diag-prog-bar"><div id="diag-prog-fill" style="width:${pct}%;background:linear-gradient(90deg,#007a86,#00c0d0,#7ae4ee);"></div></div>
+    </div>
+    <div class="diag-dim" style="color:rgba(0,200,215,.75);">Business Model Canvas</div>
+    <div class="diag-q">${q.label}</div>
+    ${fieldHtml}
+    <div class="diag-nav">
+      <button class="diag-btn ghost" onclick="bmcState.step--;bmcRender()" ${s===0?'style="visibility:hidden"':''}>← Anterior</button>
+      ${q.type!=='select' ? `<button class="diag-btn" id="bmc-next" onclick="bmcState.step++;bmcRender()" ${!val.trim()?'disabled':''}>${s===total-1?'Generar canvas':'Siguiente →'}</button>` : ''}
+    </div>`;
+  const f = document.getElementById('bmc-field');
+  if(f) setTimeout(()=>f.focus(), 80);
+}
+function bmcCheckNext(){
+  const btn = document.getElementById('bmc-next');
+  const q = BMC_STEPS[bmcState.step];
+  if(btn) btn.disabled = !(bmcState.data[q.key]||'').trim();
+}
+
+function bmcBuild(){
+  const d = bmcState.data;
+  const sec = BMC_SECTORS[d.sector] || BMC_SECTORS['Otro'];
+  const isDigital = d.channel === 'Principalmente digital';
+  const isHybrid  = d.channel && d.channel.startsWith('Híbrido');
+  let channels = isDigital ? sec.channels_digital
+    : (isHybrid ? [sec.channels_digital[0], sec.channels_fisico[0], sec.channels_digital[1]] : sec.channels_fisico);
+
+  const clientMap = {
+    'Empresas (B2B)': ['Empresas que enfrentan: ' + trunc(d.problem, 70), 'Decisores: gerencias y direcciones de área', 'Organizaciones en búsqueda de eficiencia y resultados'],
+    'Consumidores (B2C)': ['Personas que enfrentan: ' + trunc(d.problem, 70), 'Usuarios digitales que valoran conveniencia', 'Early adopters dispuestos a probar soluciones nuevas'],
+    'Ambos (B2B2C)': ['Empresas como canal: alcanzan al usuario final a través tuyo', 'Usuarios finales que experimentan el problema', 'Aliados que amplifican la distribución'],
+    'Instituciones públicas / educativas': ['Instituciones que enfrentan: ' + trunc(d.problem, 60), 'Decisores: rectores, secretarías, direcciones', 'Entidades con procesos de contratación formales']
+  };
+
+  return {
+    partners:  sec.partners,
+    activities: sec.activities,
+    resources: sec.resources,
+    vp: [
+      trunc(d.solution, 100) || 'Solución al problema central del cliente',
+      'Resuelve: ' + trunc(d.problem, 85),
+      'Diferencial: enfoque especializado en ' + d.sector.toLowerCase()
+    ],
+    relations: sec.relations,
+    channels:  channels,
+    segments:  clientMap[d.client] || clientMap['Consumidores (B2C)'],
+    revenue:   BMC_REVENUE[d.revenue] || BMC_REVENUE['Venta directa'],
+    costs:     BMC_COSTS[d.revenue]   || BMC_COSTS['Venta directa']
+  };
+}
+function trunc(s, n){ s = (s||'').trim(); return s.length > n ? s.slice(0, n-1) + '…' : s; }
+
+function bmcResults(c){
+  const bmc = bmcBuild();
+  bmcState.result = bmc;
+  const name = bmcState.data.name || 'Mi negocio';
+  const li = arr => arr.map(x => `<li>${x}</li>`).join('');
+
+  document.getElementById('diag-box').classList.add('wide');
+
+  c.innerHTML = `
+    <div class="diag-tag" style="color:rgba(0,200,215,.7);">Business Model Canvas</div>
+    <div class="diag-title">${name}</div>
+    <p class="diag-desc" style="margin-bottom:18px;">Metodología Osterwalder · ${bmcState.data.sector} · ${bmcState.data.client}</p>
+    <div id="bmc-grid">
+      <div class="bmc-cell tall c2"><div class="bmc-h">Socios clave</div><ul class="bmc-items">${li(bmc.partners)}</ul></div>
+      <div class="bmc-cell c2"><div class="bmc-h">Actividades clave</div><ul class="bmc-items">${li(bmc.activities)}</ul></div>
+      <div class="bmc-cell tall c2 bmc-vp"><div class="bmc-h">Propuesta de valor</div><ul class="bmc-items">${li(bmc.vp)}</ul></div>
+      <div class="bmc-cell c2"><div class="bmc-h">Relación con clientes</div><ul class="bmc-items">${li(bmc.relations)}</ul></div>
+      <div class="bmc-cell tall c2"><div class="bmc-h">Segmentos de clientes</div><ul class="bmc-items">${li(bmc.segments)}</ul></div>
+      <div class="bmc-cell c2"><div class="bmc-h">Recursos clave</div><ul class="bmc-items">${li(bmc.resources)}</ul></div>
+      <div class="bmc-cell c2"><div class="bmc-h">Canales</div><ul class="bmc-items">${li(bmc.channels)}</ul></div>
+      <div class="bmc-cell wide5"><div class="bmc-h">Estructura de costos</div><ul class="bmc-items">${li(bmc.costs)}</ul></div>
+      <div class="bmc-cell wide5"><div class="bmc-h">Fuentes de ingresos</div><ul class="bmc-items">${li(bmc.revenue)}</ul></div>
+    </div>
+    <p class="diag-desc" style="font-size:.85rem;margin-bottom:20px;">Este canvas es un punto de partida generado según tus respuestas. Ajústalo, valídalo con clientes reales e itera. Si quieres profundizar en tu modelo con acompañamiento experto, conversemos.</p>
+    <div class="diag-cta-row">
+      <button class="diag-btn" onclick="bmcDownloadPNG()">Descargar PNG</button>
+      <button class="diag-btn ghost" onclick="bmcCopyText(this)">Copiar como texto</button>
+      <button class="diag-btn ghost" onclick="diagClose();go('contact')">Asesoría personalizada</button>
+    </div>`;
+}
+
+function bmcCopyText(btn){
+  const b = bmcState.result, d = bmcState.data;
+  const sec = t => t.toUpperCase();
+  const txt = [
+    'BUSINESS MODEL CANVAS — ' + (d.name||''),
+    'Sector: ' + d.sector + ' · Cliente: ' + d.client, '',
+    sec('Propuesta de valor'), ...b.vp.map(x=>'· '+x), '',
+    sec('Segmentos de clientes'), ...b.segments.map(x=>'· '+x), '',
+    sec('Canales'), ...b.channels.map(x=>'· '+x), '',
+    sec('Relación con clientes'), ...b.relations.map(x=>'· '+x), '',
+    sec('Actividades clave'), ...b.activities.map(x=>'· '+x), '',
+    sec('Recursos clave'), ...b.resources.map(x=>'· '+x), '',
+    sec('Socios clave'), ...b.partners.map(x=>'· '+x), '',
+    sec('Fuentes de ingresos'), ...b.revenue.map(x=>'· '+x), '',
+    sec('Estructura de costos'), ...b.costs.map(x=>'· '+x), '',
+    'Generado en jac-universe-web.vercel.app'
+  ].join('\n');
+  navigator.clipboard.writeText(txt).then(()=>{
+    btn.textContent = 'Copiado ✓';
+    setTimeout(()=>btn.textContent='Copiar como texto', 2000);
+  });
+}
+
+function bmcDownloadPNG(){
+  const b = bmcState.result, d = bmcState.data;
+  const W = 1600, H = 1000;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+
+  // Fondo
+  x.fillStyle = '#08090c'; x.fillRect(0,0,W,H);
+  // Título
+  x.fillStyle = '#c9a84c';
+  x.font = '300 38px Georgia, serif';
+  x.fillText('Business Model Canvas — ' + (d.name||''), 40, 58);
+  x.fillStyle = 'rgba(237,233,227,.45)';
+  x.font = '15px monospace';
+  x.fillText((d.sector + '  ·  ' + d.client + '  ·  Metodología Osterwalder').toUpperCase(), 40, 86);
+
+  const top = 110, colW = (W-80)/5, rowH = (H-top-200-60)/2;
+  const cells = [
+    { t:'SOCIOS CLAVE',        items:b.partners,  cx:40,          cy:top, w:colW, h:rowH*2 },
+    { t:'ACTIVIDADES CLAVE',   items:b.activities,cx:40+colW,     cy:top, w:colW, h:rowH },
+    { t:'RECURSOS CLAVE',      items:b.resources, cx:40+colW,     cy:top+rowH, w:colW, h:rowH },
+    { t:'PROPUESTA DE VALOR',  items:b.vp,        cx:40+colW*2,   cy:top, w:colW, h:rowH*2, gold:true },
+    { t:'RELACIÓN CON CLIENTES',items:b.relations,cx:40+colW*3,   cy:top, w:colW, h:rowH },
+    { t:'CANALES',             items:b.channels,  cx:40+colW*3,   cy:top+rowH, w:colW, h:rowH },
+    { t:'SEGMENTOS DE CLIENTES',items:b.segments, cx:40+colW*4,   cy:top, w:colW, h:rowH*2 },
+    { t:'ESTRUCTURA DE COSTOS',items:b.costs,     cx:40,          cy:top+rowH*2, w:(W-80)/2, h:170 },
+    { t:'FUENTES DE INGRESOS', items:b.revenue,   cx:40+(W-80)/2, cy:top+rowH*2, w:(W-80)/2, h:170 }
+  ];
+  function wrap(txt, maxW){
+    const words = txt.split(' '); const lines = []; let line = '';
+    words.forEach(w=>{
+      if(x.measureText(line + ' ' + w).width > maxW && line){ lines.push(line); line = w; }
+      else line = line ? line + ' ' + w : w;
+    });
+    if(line) lines.push(line);
+    return lines;
+  }
+  cells.forEach(cell=>{
+    x.strokeStyle = cell.gold ? 'rgba(201,168,76,.5)' : 'rgba(0,192,208,.3)';
+    x.lineWidth = 1;
+    x.fillStyle = cell.gold ? '#0d1016' : '#0a0c10';
+    x.fillRect(cell.cx, cell.cy, cell.w-6, cell.h-6);
+    x.strokeRect(cell.cx, cell.cy, cell.w-6, cell.h-6);
+    x.fillStyle = cell.gold ? '#c9a84c' : 'rgba(0,200,215,.85)';
+    x.font = 'bold 13px monospace';
+    x.fillText(cell.t, cell.cx+14, cell.cy+26);
+    x.fillStyle = 'rgba(237,233,227,.82)';
+    x.font = '15px Georgia, serif';
+    let yy = cell.cy + 52;
+    cell.items.forEach(item=>{
+      const lines = wrap('• ' + item, cell.w - 40);
+      lines.forEach(l=>{
+        if(yy < cell.cy + cell.h - 16){ x.fillText(l, cell.cx+14, yy); yy += 20; }
+      });
+      yy += 5;
+    });
+  });
+  x.fillStyle = 'rgba(201,168,76,.4)';
+  x.font = '13px monospace';
+  x.fillText('Generado en jac-universe-web.vercel.app — Jorge Andrés Casas Acero', 40, H-24);
+
+  const a = document.createElement('a');
+  a.download = 'business-model-canvas-' + (d.name||'negocio').toLowerCase().replace(/\s+/g,'-') + '.png';
+  a.href = cv.toDataURL('image/png');
+  a.click();
+}
+
+// ══════════ RUTA DE TRANSFORMACIÓN DIGITAL ══════════
+const RM_STEPS = [
+  { key:'size',    label:'¿Qué tamaño tiene tu empresa?', opts:['Micro (menos de 10 personas)','Pequeña (10 a 50)','Mediana (50 a 200)','Grande (más de 200)'] },
+  { key:'level',   label:'¿Cuál describe mejor tu nivel digital actual?', opts:['Básico: procesos en papel, Excel y WhatsApp','Intermedio: sistemas digitales pero aislados entre sí','Avanzado: sistemas integrados en buena parte de la operación'] },
+  { key:'goal',    label:'¿Cuál es tu objetivo principal con la transformación?', opts:['Eficiencia operativa: reducir costos y tiempos','Experiencia de cliente: atraer, servir y retener mejor','Nuevos ingresos: productos o canales digitales','Datos: decidir con información confiable','Cultura y talento: preparar al equipo para el cambio'] },
+  { key:'horizon', label:'¿En qué horizonte esperas ver resultados?', opts:['6 meses (agresivo)','12 meses (equilibrado)','18-24 meses (progresivo)'] }
+];
+
+const RM_GOAL_STEPS = {
+  'Eficiencia operativa: reducir costos y tiempos': [
+    'Mapear los 3 procesos con más pasos manuales y medir sus tiempos actuales',
+    'Automatizar el proceso de mayor fricción con herramientas no-code o RPA ligero',
+    'Digitalizar la gestión documental: eliminar papel y versiones en correos',
+    'Implementar tablero de indicadores operativos actualizado automáticamente'
+  ],
+  'Experiencia de cliente: atraer, servir y retener mejor': [
+    'Mapear el viaje del cliente actual e identificar los 3 puntos de mayor fricción',
+    'Implementar un CRM y centralizar la información de clientes',
+    'Habilitar autoservicio digital para las consultas más frecuentes',
+    'Establecer medición sistemática de satisfacción (NPS o similar) con ciclos de mejora'
+  ],
+  'Nuevos ingresos: productos o canales digitales': [
+    'Validar con clientes reales la oportunidad digital de mayor potencial',
+    'Lanzar un piloto mínimo viable del nuevo canal o producto digital',
+    'Construir capacidades de marketing digital y analítica de conversión',
+    'Escalar lo que demuestre tracción y descartar rápido lo que no'
+  ],
+  'Datos: decidir con información confiable': [
+    'Inventariar las fuentes de datos críticas y evaluar su calidad',
+    'Centralizar los datos clave en un repositorio único (aunque sea simple)',
+    'Construir los 3 tableros de decisión más importantes para la dirección',
+    'Formar a los líderes en interpretación y uso de datos para decidir'
+  ],
+  'Cultura y talento: preparar al equipo para el cambio': [
+    'Medir las competencias digitales actuales del equipo por rol',
+    'Diseñar rutas de formación aplicada, conectadas a proyectos reales',
+    'Identificar y empoderar champions digitales en cada área',
+    'Establecer rituales de innovación: espacios seguros para experimentar'
+  ]
+};
+
+let rmState = { step:-1, data:{} };
+
+function rmOpen(){
+  rmState = { step:-1, data:{} };
+  document.getElementById('diag-box').classList.remove('wide');
+  document.getElementById('diag-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  rmRender();
+}
+
+function rmRender(){
+  const c = document.getElementById('diag-content');
+  const s = rmState.step;
+
+  if(s === -1){
+    c.innerHTML = `
+      <div class="diag-tag" style="color:rgba(230,160,80,.75);">Herramienta gratuita</div>
+      <div class="diag-title">Ruta de<br><em>Transformación Digital</em></div>
+      <p class="diag-desc">Genera una hoja de ruta por fases para transformar digitalmente tu empresa: pasos concretos, tiempos estimados y quick wins, adaptados a tu tamaño, nivel de madurez y objetivo principal.</p>
+      <div style="display:flex;gap:20px;margin-bottom:30px;flex-wrap:wrap;">
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">4 preguntas</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">4 fases con pasos</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;">Quick wins incluidos</div>
+      </div>
+      <button class="diag-btn" onclick="rmState.step=0;rmRender()">Generar mi ruta</button>`;
+    return;
+  }
+
+  if(s >= RM_STEPS.length){ rmResults(c); return; }
+
+  const q = RM_STEPS[s];
+  const total = RM_STEPS.length;
+  const pct = Math.round((s/total)*100);
+  const val = rmState.data[q.key] || '';
+
+  c.innerHTML = `
+    <div id="diag-progress">
+      <div id="diag-prog-txt"><span>Paso ${s+1} de ${total}</span><span>${pct}%</span></div>
+      <div id="diag-prog-bar"><div id="diag-prog-fill" style="width:${pct}%;background:linear-gradient(90deg,#8a5010,#d08838,#f0b060);"></div></div>
+    </div>
+    <div class="diag-dim" style="color:rgba(230,160,80,.8);">Transformación Digital</div>
+    <div class="diag-q">${q.label}</div>
+    <div class="diag-opts">${q.opts.map(o=>`
+      <div class="diag-opt ${val===o?'sel':''}" onclick="rmState.data['${q.key}']='${o.replace(/'/g,"\\'")}';rmRender();setTimeout(()=>{rmState.step++;rmRender()},320)">${o}</div>`).join('')}
+    </div>
+    <div class="diag-nav">
+      <button class="diag-btn ghost" onclick="rmState.step--;rmRender()" ${s===0?'style="visibility:hidden"':''}>← Anterior</button>
+      <span></span>
+    </div>`;
+}
+
+function rmResults(c){
+  const d = rmState.data;
+  const isSmall = d.size.startsWith('Micro') || d.size.startsWith('Pequeña');
+  const isBasic = d.level.startsWith('Básico');
+  const horizon = d.horizon.startsWith('6') ? 6 : (d.horizon.startsWith('12') ? 12 : 21);
+  const f = [Math.max(1, Math.round(horizon*0.15)), Math.round(horizon*0.3), Math.round(horizon*0.35), Math.round(horizon*0.2)];
+
+  const phases = [
+    {
+      n:'01', t:'Diagnóstico y Alineación', dur: f[0] + (f[0]===1?' mes':' meses'),
+      obj:'Entender el punto de partida y alinear a los líderes en una visión común.',
+      steps: isSmall ? [
+        'Realizar un diagnóstico ágil de madurez digital (puedes usar el de este sitio)',
+        'Definir con el equipo directivo el objetivo principal y 3 metas medibles',
+        'Inventariar herramientas, procesos y datos actuales',
+        'Asignar un responsable de la transformación con tiempo real dedicado'
+      ] : [
+        'Ejecutar diagnóstico de madurez digital por área con instrumento formal',
+        'Realizar taller de alineación estratégica con el comité directivo',
+        'Mapear procesos críticos, sistemas y flujos de datos actuales',
+        'Conformar el equipo líder de transformación con roles y gobernanza clara',
+        'Definir el caso de negocio y presupuesto de la primera ola'
+      ],
+      qw:'Publica los resultados del diagnóstico internamente: la transparencia sobre el punto de partida genera urgencia y compromiso inmediato.'
+    },
+    {
+      n:'02', t:'Fundamentos', dur: f[1]+' meses',
+      obj: isBasic ? 'Construir la base digital mínima: sin fundamentos, todo lo demás se cae.' : 'Consolidar e integrar lo que ya existe antes de sumar herramientas nuevas.',
+      steps: isBasic ? [
+        'Migrar la operación crítica de papel/Excel a herramientas digitales colaborativas',
+        'Centralizar la información de clientes en un CRM (aunque sea simple)',
+        'Establecer canales digitales básicos: sitio web funcional y comunicación formal',
+        'Capacitar al equipo en las herramientas nuevas con práctica real',
+        'Definir políticas mínimas de seguridad y respaldo de información'
+      ] : [
+        'Integrar los sistemas aislados: que la información fluya sin re-digitación',
+        'Establecer gobierno de datos: responsables, calidad y accesos',
+        'Estandarizar procesos digitales entre áreas',
+        'Cerrar brechas de ciberseguridad identificadas en el diagnóstico'
+      ],
+      qw: isBasic ? 'Digitaliza primero el proceso que más quejas genera: el alivio inmediato construye credibilidad para el resto de la ruta.' : 'Elimina la doble digitación más costosa integrando dos sistemas clave: el ahorro de tiempo es visible en semanas.'
+    },
+    {
+      n:'03', t:'Implementación Prioritaria', dur: f[2]+' meses',
+      obj:'Ejecutar las iniciativas de mayor impacto según tu objetivo: ' + d.goal.split(':')[0].toLowerCase() + '.',
+      steps: RM_GOAL_STEPS[d.goal] || RM_GOAL_STEPS['Eficiencia operativa: reducir costos y tiempos'],
+      qw:'Elige la iniciativa de esta fase con resultados visibles en menos de 60 días y comunica su avance cada semana.'
+    },
+    {
+      n:'04', t:'Escalamiento y Mejora Continua', dur: f[3]+' meses (y permanente)',
+      obj:'Convertir los pilotos exitosos en la nueva forma de operar y sostener el ritmo.',
+      steps:[
+        'Escalar las iniciativas exitosas a toda la organización con plan de adopción',
+        'Institucionalizar la medición: tablero de indicadores de transformación revisado mensualmente',
+        'Transferir capacidades al equipo interno para reducir dependencia externa',
+        'Establecer un ciclo trimestral de revisión: qué escalar, qué ajustar, qué descartar',
+        'Explorar la siguiente frontera: IA aplicada a los procesos ya digitalizados'
+      ],
+      qw:'Documenta y celebra públicamente los casos de éxito internos: son el mejor combustible cultural para la siguiente ola.'
+    }
+  ];
+  rmState.phases = phases;
+
+  c.innerHTML = `
+    <div class="diag-tag" style="color:rgba(230,160,80,.75);">Tu hoja de ruta</div>
+    <div class="diag-title">Ruta de Transformación Digital</div>
+    <p class="diag-desc" style="margin-bottom:22px;">${d.size.split(' (')[0]} · Nivel ${d.level.split(':')[0].toLowerCase()} · Horizonte ${horizon} meses · Foco: ${d.goal.split(':')[0]}</p>
+    <div id="rm-timeline">
+      ${phases.map(p=>`
+        <div class="rm-phase">
+          <div class="rm-dot">${p.n}</div>
+          <div class="rm-phase-h"><span class="rm-phase-t">${p.t}</span><span class="rm-phase-d">${p.dur}</span></div>
+          <div class="rm-phase-obj">${p.obj}</div>
+          <ul class="rm-steps">${p.steps.map(st=>`<li>${st}</li>`).join('')}</ul>
+          <div class="rm-qw"><strong>Quick win</strong>${p.qw}</div>
+        </div>`).join('')}
+    </div>
+    <p class="diag-desc" style="font-size:.85rem;margin-bottom:20px;">Esta ruta es un marco de partida basado en buenas prácticas. Cada organización tiene matices que merecen análisis específico. Si quieres una hoja de ruta a la medida con acompañamiento experto, conversemos.</p>
+    <div class="diag-cta-row">
+      <button class="diag-btn ghost" onclick="rmCopyText(this)">Copiar mi ruta</button>
+      <button class="diag-btn" onclick="diagClose();go('contact')">Quiero acompañamiento experto</button>
+      <button class="diag-btn ghost" onclick="rmState={step:-1,data:{}};rmRender()">Generar de nuevo</button>
+    </div>`;
+}
+
+function rmCopyText(btn){
+  const d = rmState.data;
+  const txt = ['RUTA DE TRANSFORMACIÓN DIGITAL', d.size + ' · ' + d.level + ' · ' + d.horizon, ''];
+  rmState.phases.forEach(p=>{
+    txt.push('FASE ' + p.n + ' — ' + p.t + ' (' + p.dur + ')');
+    txt.push('Objetivo: ' + p.obj);
+    p.steps.forEach(s=>txt.push('  □ ' + s));
+    txt.push('  ★ Quick win: ' + p.qw, '');
+  });
+  txt.push('Generado en jac-universe-web.vercel.app');
+  navigator.clipboard.writeText(txt.join('\n')).then(()=>{
+    btn.textContent = 'Copiado ✓';
+    setTimeout(()=>btn.textContent='Copiar mi ruta', 2000);
+  });
+}
 
 </script>
 </head>
@@ -2904,6 +3593,9 @@ document.addEventListener('keydown', e => {
         <div><div class="LST slv"><div class="LD"></div>En vivo</div><div class="LICO"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" stroke="rgba(110,220,140,.72)" stroke-width="1"/><circle cx="11" cy="11" r="4.5" stroke="rgba(110,220,140,.4)" stroke-width="1"/><circle cx="11" cy="11" r="1.4" fill="rgba(110,220,140,.9)"/><line x1="11" y1="1" x2="11" y2="6.5" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="11" y1="15.5" x2="11" y2="21" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="1" y1="11" x2="6.5" y2="11" stroke="rgba(110,220,140,.36)" stroke-width="1"/><line x1="15.5" y1="11" x2="21" y2="11" stroke="rgba(110,220,140,.36)" stroke-width="1"/></svg></div><div class="LTT">Diagnóstico de Madurez Digital</div><p class="LDC">Responde 15 preguntas y recibe tu puntuación, mapa de brechas por dimensión y recomendaciones priorizadas al instante.</p><div class="LMI"><strong>3-5 min</strong>&nbsp;·&nbsp;<strong>+890</strong> diagnósticos&nbsp;·&nbsp;Gratis</div><div style="display:flex;gap:9px;align-items:center;"><div class="bP" onclick="diagOpen()" role="button" tabindex="0" onkeydown="if(event.key==='Enter')diagOpen()">Iniciar diagnóstico</div><span class="badge bF">Gratis</span></div></div>
         <div class="LV"><div class="gbg" style="opacity:.18;"></div><div style="position:relative;z-index:1;"><svg width="75" height="75" viewBox="0 0 75 75" fill="none"><circle cx="37.5" cy="37.5" r="35" stroke="rgba(110,220,140,.1)" stroke-width="1"/><circle cx="37.5" cy="37.5" r="25" stroke="rgba(110,220,140,.08)" stroke-width="1"/><circle cx="37.5" cy="37.5" r="15" stroke="rgba(0,190,200,.1)" stroke-width="1"/><circle cx="37.5" cy="37.5" r="4" fill="rgba(110,220,140,.4)"/><line x1="37.5" y1="2.5" x2="37.5" y2="20" stroke="rgba(110,220,140,.26)" stroke-width="1.2"/><line x1="37.5" y1="55" x2="37.5" y2="72.5" stroke="rgba(110,220,140,.26)" stroke-width="1.2"/><line x1="2.5" y1="37.5" x2="20" y2="37.5" stroke="rgba(110,220,140,.26)" stroke-width="1.2"/><line x1="55" y1="37.5" x2="72.5" y2="37.5" stroke="rgba(110,220,140,.26)" stroke-width="1.2"/></svg></div></div>
       </div>
+      
+      <div class="LC tilt rev"><div class="LST slv"><div class="LD"></div>En vivo</div><div class="LICO"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="1.5" y="2.5" width="17" height="15" rx="1" stroke="rgba(0,200,215,.72)" stroke-width="1"/><line x1="7" y1="2.5" x2="7" y2="12" stroke="rgba(0,200,215,.4)" stroke-width="1"/><line x1="13" y1="2.5" x2="13" y2="12" stroke="rgba(0,200,215,.4)" stroke-width="1"/><line x1="1.5" y1="12" x2="18.5" y2="12" stroke="rgba(0,200,215,.4)" stroke-width="1"/><line x1="10" y1="12" x2="10" y2="17.5" stroke="rgba(0,200,215,.4)" stroke-width="1"/></svg></div><div class="LTT">Generador de Modelo de Negocio</div><p class="LDC">Construye tu Business Model Canvas (Osterwalder) completo en minutos: 9 bloques generados según tu negocio, descargable en PNG.</p><div class="LMI"><strong>4-6 min</strong>&nbsp;·&nbsp;<strong>9 bloques</strong>&nbsp;·&nbsp;Gratis</div><div style="display:flex;gap:9px;align-items:center;"><div class="bP" onclick="bmcOpen()" role="button" tabindex="0" onkeydown="if(event.key==='Enter')bmcOpen()">Crear mi canvas</div><span class="badge bF">Gratis</span></div></div>
+      <div class="LC tilt rev"><div class="LST slv"><div class="LD"></div>En vivo</div><div class="LICO"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="4" cy="4" r="2.2" stroke="rgba(230,160,80,.75)" stroke-width="1"/><circle cx="10" cy="10" r="2.2" stroke="rgba(230,160,80,.75)" stroke-width="1"/><circle cx="16" cy="16" r="2.2" stroke="rgba(230,160,80,.75)" stroke-width="1"/><line x1="5.6" y1="5.6" x2="8.4" y2="8.4" stroke="rgba(230,160,80,.4)" stroke-width="1"/><line x1="11.6" y1="11.6" x2="14.4" y2="14.4" stroke="rgba(230,160,80,.4)" stroke-width="1"/></svg></div><div class="LTT">Ruta de Transformación Digital</div><p class="LDC">Genera una hoja de ruta por fases con pasos concretos, tiempos y quick wins, adaptada al tamaño y madurez de tu empresa.</p><div class="LMI"><strong>3-4 min</strong>&nbsp;·&nbsp;<strong>4 fases</strong>&nbsp;·&nbsp;Gratis</div><div style="display:flex;gap:9px;align-items:center;"><div class="bP" onclick="rmOpen()" role="button" tabindex="0" onkeydown="if(event.key==='Enter')rmOpen()">Generar mi ruta</div><span class="badge bF">Gratis</span></div></div>
       <div class="LC tilt rev"><div class="LST slv"><div class="LD"></div>En vivo</div><div class="LICO"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" stroke="rgba(110,220,140,.72)" stroke-width="1"/><line x1="5" y1="8.5" x2="15" y2="8.5" stroke="rgba(110,220,140,.42)" stroke-width="1"/><line x1="5" y1="12" x2="12" y2="12" stroke="rgba(110,220,140,.32)" stroke-width="1"/></svg></div><div class="LTT">Generador de Objetivos de Aprendizaje</div><p class="LDC">La IA genera objetivos medibles alineados con la taxonomía de Bloom para tu syllabus.</p><div class="LMI"><strong>30 seg</strong>&nbsp;·&nbsp;<strong>+2.100</strong> generados</div><div style="display:flex;gap:9px;"><div class="bP">Generar</div><span class="badge bF">Gratis</span></div></div>
       <div class="LC tilt rev" style="position:relative;overflow:hidden;"><div class="LST sso"><div class="LD"></div>Próximamente</div><div class="LICO"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><polygon points="10,2 19,7.5 19,12.5 10,18 1,12.5 1,7.5" fill="none" stroke="rgba(110,220,140,.65)" stroke-width="1"/><circle cx="10" cy="10" r="2.8" stroke="rgba(110,220,140,.36)" stroke-width="1"/></svg></div><div class="LTT">Analizador de Riesgos de IA</div><p class="LDC">Riesgos éticos, técnicos y de gobernanza con framework de mitigación adaptado.</p><div class="LMI">Miembro PRO · Ago 2025</div><div class="bO" onclick="go('membership')">Notificarme</div><div class="COV"><div class="CL">Próximamente</div></div></div>
       <div class="LC tilt rev" style="position:relative;overflow:hidden;"><div class="LST sso"><div class="LD"></div>En desarrollo</div><div class="LICO"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="4" stroke="rgba(110,220,140,.65)" stroke-width="1"/><path d="M3 19Q3 13.5 10 13.5Q17 13.5 17 19" stroke="rgba(110,220,140,.65)" stroke-width="1" fill="none"/></svg></div><div class="LTT">Personalizador de Rutas de Aprendizaje</div><p class="LDC">Rutas adaptadas al perfil y metas del aprendiz con recursos y evaluaciones personalizadas.</p><div class="LMI">Miembro PRO · Sep 2025</div><div class="bO" onclick="go('membership')">Notificarme</div><div class="COV"><div class="CL">En desarrollo</div></div></div>
